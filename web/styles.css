@@ -1,0 +1,44 @@
+body {
+    width: 50%;
+    margin: 0 auto;
+    color: #e6e6e6;
+    background: #333333;
+}
+
+
+th, td, h3, h1, p {
+    padding: 3px 20px;
+    text-align: left;
+}
+
+
+
+select {
+    width: 100%;
+}
+
+p {
+    color: deepskyblue;
+}
+
+.btn {
+    text-decoration: none;
+    cursor: default;
+    display: inline-block;
+    width: 100%;
+}
+
+
+input[type="submit"]
+{
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 5px 8px;
+    cursor:pointer;
+    margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
