@@ -127,6 +127,10 @@ public class AccountService {
         {
             user.setEmail(email);
         }
+        else if (email.equals(login_email))
+        {
+            user.setEmail(email);
+        }
         else {
             throw new Exception("email_exists");
         }

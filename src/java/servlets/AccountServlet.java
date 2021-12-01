@@ -60,6 +60,7 @@ public class AccountServlet extends HttpServlet {
         {
             as.update(email, password, active, firstname, lastname, role, login_user);
             request.setAttribute("message", "updated");
+            session.setAttribute("email", email);
         } 
         catch (Exception ex) 
         {
@@ -68,6 +69,11 @@ public class AccountServlet extends HttpServlet {
             Logger.getLogger(AccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        if (user.getActive() != true)
+        {
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            return;
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);
         return;
     }
