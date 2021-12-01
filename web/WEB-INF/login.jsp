@@ -28,6 +28,9 @@
                 </table>
             </form>     
             <div id="loginMessaage">
+                <c:if test="${message eq 'registered'}">
+                    <p> Registered successfully. </p>
+                </c:if>
                 <c:if test="${message eq 'empty'}">
                     <p> Invalid login. Please enter username and password.</p>
                 </c:if>

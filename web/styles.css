@@ -11,7 +11,7 @@ body {
 
 
 th, td, h3, h1{
-    padding: 3px 20px;
+    padding: 5px 20px;
     text-align: left;
 }
 
@@ -20,7 +20,7 @@ select {
 }
 
 p {
-    margin: 5px auto;
+    margin: 5px 20px;
     color: deepskyblue;
 }
 
@@ -38,7 +38,6 @@ input[type="submit"]
     border: 1px solid black;
     padding: 5px 8px;
     cursor:pointer;
-    margin-top: 10px;
 }
 
 a {
@@ -59,12 +58,12 @@ a {
 
 #loginMessaage {
     padding: 0px 20px;
-    margin-left: 25%;
+    margin-left: 20%;
 }
 
 #registerMessaage {
     padding: 0px 20px;
-    margin-left: 30%;
+    margin-left: 25%;
 }
 
 td[rowspan="2"] {
@@ -89,4 +88,13 @@ td[rowspan="2"] {
 
 .menu td {
     padding: 0;
+}
+
+.tableA {
+    width: 70%;
+    margin-left: 20px;
+}
+.tableA tr {
+    background-color: darkviolet;
+    
 }

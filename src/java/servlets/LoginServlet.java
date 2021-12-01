@@ -20,12 +20,12 @@ public class LoginServlet extends HttpServlet {
         session.invalidate(); // just by going to the login page the user is logged out :-) 
         
         String query = request.getQueryString();
-        /*
+        
         if(query.equals("logout"))
         {
             request.setAttribute("message", "logout");
         }
-        */
+        
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 

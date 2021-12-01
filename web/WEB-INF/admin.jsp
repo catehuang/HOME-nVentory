@@ -11,11 +11,11 @@
         <h1>Home Inventory</h1>
         <div>
             <h3>Menu</h3>
-            <table>
-                <tr><td>&#10016;</td><td><a href="inventory">Inventory</a></td></tr>
-                <tr><td>&#10016;</td><td><a href="admin">Admin</a></td></tr>
-                <tr><td>&#10016;</td><td><a href="login?logout">Logout</a></td></tr>
-            </table>
+                <table class="menu">
+                    <tr><td><a href="inventory">Inventory</a></td></tr>
+                    <tr><td><a href="admin">Admin</a></td></tr>
+                    <tr><td><a href="login?logout">Logout</a></td></tr>
+                </table>
         </div>
 
         <div>

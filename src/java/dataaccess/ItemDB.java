@@ -82,7 +82,7 @@ public class ItemDB
     public void delete(Item item) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        
+
         try 
         {
             User user = item.getOwner();

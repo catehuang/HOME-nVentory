@@ -31,7 +31,6 @@ public class AdminFilter implements Filter {
        
         if (user.getRole().getRoleId() != 1)
         {
-            System.out.println("Not Admin");
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendRedirect("inventory");
             return;

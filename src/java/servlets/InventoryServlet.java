@@ -71,7 +71,7 @@ public class InventoryServlet extends HttpServlet {
                     int categoryID = Integer.parseInt(request.getParameter("category"));
                     String itemName = request.getParameter("item");
                     String price = request.getParameter("price");
-                    System.out.println(item.getItemId());
+
                     try {
                         // Integer itemId, String itemName, double price
                         is.insert(categoryID, itemName, price, email);
@@ -97,7 +97,7 @@ public class InventoryServlet extends HttpServlet {
                     try {
                         String key = request.getParameter("key");
                         int itemID = Integer.parseInt(key);
-                        is.delete(itemID, email);
+                        is.delete(itemID, user);
                         request.setAttribute("message", "deleted");
                     } catch (Exception ex) {
                         request.setAttribute("message", ex.getMessage());

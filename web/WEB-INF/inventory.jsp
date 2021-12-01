@@ -21,7 +21,7 @@
             </div>
 
             <h3>Inventory for ${user.firstName} ${user.lastName}</h3>
-            <table>
+            <table class="tableA">
                 <tr>
                     <th>Category</th>
                     <th>Name</th>
@@ -55,7 +55,7 @@
 
             <form method="POST" action="inventory">
                 <h3>Add Item</h3>
-                <table>
+                <table class="tableB">
                     <tr>
                         <td><label>Category</label></td>
                         <td>

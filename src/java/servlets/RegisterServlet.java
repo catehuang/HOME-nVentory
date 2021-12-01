@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
-        System.out.println(email + password + firstname + lastname);
+        
         AccountService as = new AccountService();
         User user = new User();
         
@@ -39,6 +39,7 @@ public class RegisterServlet extends HttpServlet {
         {
             // String email, String password, boolean active, String firstname, String lastname, int role
             as.insert(email, password, true, firstname, lastname, 2);
+            request.setAttribute("message", "registered");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         } 

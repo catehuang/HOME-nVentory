@@ -16,8 +16,8 @@ public class InventoryService {
 
     public List<Item> getAll(String email) throws Exception {
         ItemDB itemsDB = new ItemDB();
-        List<Item> notes = itemsDB.getAll(email);
-        return notes;
+        List<Item> items = itemsDB.getAll(email);
+        return items;
     }
 
     public void insert(int categoryID, String itemName, String string_price, String email) throws Exception {
@@ -61,10 +61,10 @@ public class InventoryService {
         itemDB.update(item);
     }
 */
-    public void delete(Integer itemID, String email) throws Exception {
+    public void delete(Integer itemID, User user) throws Exception {
         ItemDB itemDB = new ItemDB();
-
-        if (itemDB.get(itemID).getOwner().getEmail().equals(email)) {
+      
+        if (itemDB.get(itemID).getOwner().equals(user)) {
             Item item = itemDB.get(itemID);
             itemDB.delete(item);
         } else {
