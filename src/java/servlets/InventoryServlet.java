@@ -1,6 +1,6 @@
 package servlets;
 
-import dataaccess.CategoriesDB;
+import dataaccess.CategoryDB;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Categories;
-import models.Items;
-import models.Users;
+import models.*;
 import services.AccountService;
 import services.InventoryService;
 
@@ -23,19 +21,19 @@ public class InventoryServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
+        String email = (String) session.getAttribute("email");
         AccountService as = new AccountService();
-        Users user = as.get(username);
+        User user = as.get(email);
 
         InventoryService is = new InventoryService();
-        List<Items> items = null;
+        List<Item> items = null;
 
-        Categories categories = new Categories();
-        CategoriesDB categoriesDB = new CategoriesDB();
-        List<Categories> categoryList = categoriesDB.getAll();
+        Category categories = new Category();
+        CategoryDB categoriesDB = new CategoryDB();
+        List<Category> categoryList = categoriesDB.getAll();
 
         try {
-            items = is.getAll(username);
+            items = is.getAll(email);
         } catch (Exception ex) {
             Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,18 +52,18 @@ public class InventoryServlet extends HttpServlet {
             throws ServletException, IOException {
         // get the username from current session
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
+        String email = (String) session.getAttribute("email");
         String action = request.getParameter("action");
 
         AccountService as = new AccountService();
-        Users user = as.get(username);
+        User user = as.get(email);
 
-        Items item = new Items();
+        Item item = new Item();
         InventoryService is = new InventoryService();
 
-        CategoriesDB categoriesDB = new CategoriesDB();
-        Categories categories = new Categories();
-        List<Categories> categoryList = categoriesDB.getAll();
+        CategoryDB categoriesDB = new CategoryDB();
+        Category categories = new Category();
+        List<Category> categoryList = categoriesDB.getAll();
 
         try {
             switch (action) {
@@ -73,9 +71,10 @@ public class InventoryServlet extends HttpServlet {
                     int categoryID = Integer.parseInt(request.getParameter("category"));
                     String itemName = request.getParameter("item");
                     String price = request.getParameter("price");
-
+                    System.out.println(item.getItemId());
                     try {
-                        is.insert(categoryID, itemName, price, username);
+                        // Integer itemId, String itemName, double price
+                        is.insert(categoryID, itemName, price, email);
                         request.setAttribute("message", "added");
                     } catch (Exception ex) {
                         item.setCategory(categoriesDB.get(categoryID));
@@ -98,7 +97,7 @@ public class InventoryServlet extends HttpServlet {
                     try {
                         String key = request.getParameter("key");
                         int itemID = Integer.parseInt(key);
-                        is.delete(itemID, username);
+                        is.delete(itemID, email);
                         request.setAttribute("message", "deleted");
                     } catch (Exception ex) {
                         request.setAttribute("message", ex.getMessage());
@@ -110,10 +109,10 @@ public class InventoryServlet extends HttpServlet {
             Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        List<Items> items = null;
+        List<Item> items = null;
 
         try {
-            items = is.getAll(username);
+            items = is.getAll(email);
         } catch (Exception ex) {
             Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

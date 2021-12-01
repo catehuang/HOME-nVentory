@@ -144,26 +144,23 @@
             </div>
         </c:if>
 
-        <c:if test="${message eq 'username_exists'}">
-            <p>Error. Username exists. Please choose other username.</p>
+        <c:if test="${message eq 'email_exists'}">
+            <p>Error. Email exists.</p>
         </c:if>
         <c:if test="${message eq 'empty_string'}">
             <p>Error. Please fill all fields.</p>
         </c:if>
-        <c:if test="${message eq 'username_10'}">
-            <p>Error. The maximum length for username is 10.</p>
-        </c:if> 
         <c:if test="${message eq 'password_20'}">
             <p>Error. The maximum length for password is 20.</p>
         </c:if>    
-        <c:if test="${message eq 'email_50'}">
-            <p>Error. The maximum length for email is 50.</p>
+        <c:if test="${message eq 'email_40'}">
+            <p>Error. The maximum length for email is 40.</p>
         </c:if> 
-        <c:if test="${message eq 'lastname_50'}">
-            <p>Error. The maximum length for lastname is 50.</p>
+        <c:if test="${message eq 'lastname_20'}">
+            <p>Error. The maximum length for lastname is 20.</p>
         </c:if> 
-        <c:if test="${message eq 'firstname_50'}">
-            <p>Error. The maximum length for firstname is 50.</p>
+        <c:if test="${message eq 'firstname_20'}">
+            <p>Error. The maximum length for firstname is 20.</p>
         </c:if> 
         <c:if test="${message eq 'failed_from_DB'}">
             <p>Error. Failed to add user.</p>

@@ -1,34 +1,34 @@
 package services;
 
-import dataaccess.CategoriesDB;
-import dataaccess.ItemsDB;
+import dataaccess.CategoryDB;
+import dataaccess.ItemDB;
 import dataaccess.UserDB;
 import java.util.List;
-import models.Items;
-import models.Users;
+import models.*;
 
 public class InventoryService {
 
-    public Items get(Integer itemID) throws Exception {
-        ItemsDB itemsDB = new ItemsDB();
-        Items item = itemsDB.get(itemID);
+    public Item get(Integer itemID) throws Exception {
+        ItemDB itemsDB = new ItemDB();
+        Item item = itemsDB.get(itemID);
         return item;
     }
 
-    public List<Items> getAll(String username) throws Exception {
-        ItemsDB itemsDB = new ItemsDB();
-        List<Items> notes = itemsDB.getAll(username);
+    public List<Item> getAll(String email) throws Exception {
+        ItemDB itemsDB = new ItemDB();
+        List<Item> notes = itemsDB.getAll(email);
         return notes;
     }
 
-    public void insert(int categoryID, String itemName, String string_price, String username) throws Exception {
-        Items item = new Items();
-        ItemsDB itemDB = new ItemsDB();
+    public void insert(int categoryID, String itemName, String string_price, String email) throws Exception {
+        Item item = new Item();
+        ItemDB itemDB = new ItemDB();
         UserDB userDB = new UserDB();
-        CategoriesDB categoriesDB = new CategoriesDB();
+        CategoryDB categoriesDB = new CategoryDB();
 
+        //item.setItemId(itemID);
         item.setCategory(categoriesDB.get(categoryID));
-
+        
         if (itemName == null || itemName.equals("")) {
             throw new Exception("invalid_input");
         } else {
@@ -48,24 +48,24 @@ public class InventoryService {
             item.setPrice(price);
         }
 
-        item.setOwner(userDB.get(username));
+        item.setOwner(userDB.get(email));
         itemDB.insert(item);
     }
 /*
     public void update(Integer itemID, String itemName, double price, String owner) throws Exception {
-        ItemsDB itemDB = new ItemsDB();
-        Items item = itemDB.get(itemID);
+        ItemDB itemDB = new ItemDB();
+        Item item = itemDB.get(itemID);
         item.setItemName(itemName);
         item.setPrice(price);
 
         itemDB.update(item);
     }
 */
-    public void delete(Integer itemID, String username) throws Exception {
-        ItemsDB itemDB = new ItemsDB();
+    public void delete(Integer itemID, String email) throws Exception {
+        ItemDB itemDB = new ItemDB();
 
-        if (itemDB.get(itemID).getOwner().getUsername().equals(username)) {
-            Items item = itemDB.get(itemID);
+        if (itemDB.get(itemID).getOwner().getEmail().equals(email)) {
+            Item item = itemDB.get(itemID);
             itemDB.delete(item);
         } else {
             throw new Exception("not_belong_to_you");

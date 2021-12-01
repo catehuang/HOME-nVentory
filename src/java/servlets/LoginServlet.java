@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Users;
+import models.*;
 import services.AccountService;
 
 
@@ -20,11 +20,12 @@ public class LoginServlet extends HttpServlet {
         session.invalidate(); // just by going to the login page the user is logged out :-) 
         
         String query = request.getQueryString();
+        /*
         if(query.equals("logout"))
         {
             request.setAttribute("message", "logout");
         }
-        
+        */
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
@@ -32,23 +33,23 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         
         AccountService as = new AccountService();
-        Users user = as.login(username, password);
+        User user = as.login(email, password);
         
         if (user == null) {
-            request.setAttribute("username", username);
+            request.setAttribute("email", email);
             request.setAttribute("message", "invalid_login");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
         
         HttpSession session = request.getSession();
-        session.setAttribute("username", username);
+        session.setAttribute("email", email);
         
-        if (user.getIsAdmin()) {
+        if (user.getRole().getRoleId() == 1) {
             response.sendRedirect("admin");
             return; 
         } else {

@@ -3,41 +3,40 @@ package dataaccess;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.Users;
+import models.*;
 
 public class UserDB {
 
-    public Users get(String username) {
+    public User get(String email) {
 
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
         try {
-            Users user = em.find(Users.class, username);
+            User user = em.find(User.class, email);
             return user;
         } finally {
             em.close();
         }
     }
 
-    public List<Users> getAll() {
+    public List<User> getAll() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
         try {
-            List<Users> users = em.createNamedQuery("Users.findAll", Users.class).getResultList();
+            List<User> users = em.createNamedQuery("User.findAll", User.class).getResultList();
             return users;
         } finally {
             em.close();
         }
     }
 
-    public void insert(Users user) throws Exception {
+    public void insert(User user) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        boolean status = true;
         
         try {
             UserDB userDB = new UserDB();
-            List<Users> users = userDB.getAll();
+            List<User> users = userDB.getAll();
             users.add(user);
             trans.begin();
             em.persist(user);
@@ -50,7 +49,7 @@ public class UserDB {
         }
     }
 
-    public void update(Users user) throws Exception {
+    public void update(User user) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
@@ -65,13 +64,13 @@ public class UserDB {
         }
     }
 
-    public void delete(Users user) throws Exception {
+    public void delete(User user) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
         try {
             UserDB userDB = new UserDB();
-            List<Users> users = userDB.getAll();
+            List<User> users = userDB.getAll();
             users.remove(user);
             trans.begin();
             em.remove(em.merge(user));

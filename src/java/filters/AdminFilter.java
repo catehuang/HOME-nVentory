@@ -2,7 +2,7 @@ package filters;
 
 import dataaccess.UserDB;
 import java.io.IOException;
-import javax.servlet.Filter;
+import javax.servlet.*;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Users;
+import models.*;
 
 
 public class AdminFilter implements Filter {
@@ -25,11 +25,11 @@ public class AdminFilter implements Filter {
                 HttpServletRequest httpRequest = (HttpServletRequest) request;
                 
         HttpSession session = httpRequest.getSession();
-        String username = (String) session.getAttribute("username");
+        String email = (String) session.getAttribute("email");
         UserDB userDB = new UserDB();
-        Users user = userDB.get(username);
+        User user = userDB.get(email);
        
-        if (! user.getIsAdmin())
+        if (user.getRole().getRoleId() != 1)
         {
             System.out.println("Not Admin");
             HttpServletResponse httpResponse = (HttpServletResponse) response;

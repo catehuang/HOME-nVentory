@@ -2,26 +2,26 @@ package dataaccess;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import models.Categories;
+import models.Role;
 
-public class CategoriesDB {
-    public Categories get(int categoryID) {
+public class RoleDB {
+    public Role get(int role_id) {
         
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            Categories category = em.find(Categories.class, categoryID);
-            return category;
+            Role role = em.find(Role.class, role_id);
+            return role;
         } finally {
             em.close();
         }
     } 
     
-    public List<Categories> getAll() {
+    public List<Role> getAll() {
             EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            List<Categories> categories = em.createNamedQuery("Categories.findAll", Categories.class).getResultList();
+            List<Role> categories = em.createNamedQuery("Category.findAll", Role.class).getResultList();
             return categories;
         } finally {
             em.close();

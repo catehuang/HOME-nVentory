@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Users;
+import models.*;
 import services.AccountService;
 
 public class AdminServlet extends HttpServlet {
@@ -24,14 +24,14 @@ public class AdminServlet extends HttpServlet {
 
         AccountService as = new AccountService();
         
-        List<Users> users = as.getAll();
+        List<User> users = as.getAll();
 
         request.setAttribute("users", users);
         request.setAttribute("as", as);
 
         if (action != null && !action.equals("") && action.equals("edit")) {
             mode = "edit";
-            Users user = new Users();
+            User user = new User();
             String username = request.getParameter("key");
             user = as.get(username);
             request.setAttribute("selectedUser", user);
@@ -48,16 +48,15 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String action = request.getParameter("action");
 
         String password = request.getParameter("password");
-        String email = request.getParameter("email");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
 
         AccountService as = new AccountService();
-        Users user = new Users();
+        User user = new User();
         
         String mode = "add";
 
@@ -66,14 +65,13 @@ public class AdminServlet extends HttpServlet {
                 case "add":
                     try 
                     {
-                        as.insert(username, password, email, firstname, lastname);
+                        as.insert(email, password, true, firstname, lastname, 2);
                         request.setAttribute("message", "added");
                     }
                     catch (Exception ex)
                     {
-                        user.setUsername(username);
-                        user.setPassword(password);
                         user.setEmail(email);
+                        user.setPassword(password);
                         user.setFirstName(firstname);
                         user.setLastName(lastname);
                         request.setAttribute("user", user);
@@ -85,16 +83,16 @@ public class AdminServlet extends HttpServlet {
                     String original = (String) session.getAttribute("originalUser");
                     try
                     {
-                        as.update(username, password, email, firstname, lastname, original);
-                        if (! username.equals(original))
+                        //String email, String password, boolean active, String firstname, String lastname, int role, String original
+                        as.update(email, password, true, firstname, lastname, 2, original);
+                        if (! email.equals(original))
                         {
-                            as.delete(original, username);
+                            as.delete(original, original);
                         }
                         request.setAttribute("message", "updated");
                     }
                     catch (Exception ex)
                     {
-                        user.setUsername(username);
                         user.setPassword(password);
                         user.setEmail(email);
                         user.setFirstName(firstname);
@@ -106,7 +104,7 @@ public class AdminServlet extends HttpServlet {
                     break;
                 case "delete":
                     String deleteThis = request.getParameter("key");
-                    String adminUser = (String) session.getAttribute("username");
+                    String adminUser = (String) session.getAttribute("email");
                     try
                     {
                         as.delete(deleteThis, adminUser);
@@ -122,7 +120,7 @@ public class AdminServlet extends HttpServlet {
             Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        List<Users> users = as.getAll();
+        List<User> users = as.getAll();
         request.setAttribute("users", users);
         request.setAttribute("mode", mode);
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);

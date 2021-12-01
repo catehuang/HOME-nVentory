@@ -2,20 +2,20 @@ package services;
 
 import dataaccess.UserDB;
 import java.util.List;
-import models.Users;
+import models.*;
 
 public class AccountService {
 
-    public Users login(String username, String password) {
+    public User login(String email, String password) {
         
-        if (username == null || username.equals("") || password == null || password.equals("")){
+        if (email == null || email.equals("") || password == null || password.equals("")){
             return null;
         }
 
         UserDB userDB = new UserDB();
-        Users user = null;
+        User user = null;
 
-        user = userDB.get(username);
+        user = userDB.get(email);
         
         if (user == null) {
             return null;
@@ -27,36 +27,42 @@ public class AccountService {
         return null;
     }
 
-    public Users get(String username) {
+    public User get(String email) {
         UserDB userDB = new UserDB();
-        Users user = null;
+        User user = null;
 
-        user = userDB.get(username);
+        user = userDB.get(email);
         return user;
     }
 
-    public List<Users> getAll() {
+    public List<User> getAll() {
         UserDB userDB = new UserDB();
-        List<Users> users = userDB.getAll();
+        List<User> users = userDB.getAll();
         return users;
     }
 
-    public void insert(String username, String password, String email, String firstname, String lastname) throws Exception {
-        Users user = new Users();
+    public void insert(String email, String password, boolean active, String firstname, String lastname, int role) throws Exception {
+        User user = new User();
         UserDB userDB = new UserDB();
-
-        if (username == null || username.equals("")) 
+        
+        // check email
+        if (email == null || email.equals("")) 
         {
             throw new Exception("empty_string");
         }
-        else if (userDB.get(username) == null)
+        else if (email.length() > 40)
         {
-            user.setUsername(username);
+            throw new Exception("email_40");
+        }
+        else if (userDB.get(email) == null) // check this email is avaliable for registration
+        {
+            user.setEmail(email);
         }
         else {
-            throw new Exception("username_exists");
+            throw new Exception("email_exists");
         }
 
+        // check password
         if (password == null || password.equals("")) 
         {
             throw new Exception("empty_string");
@@ -69,108 +75,116 @@ public class AccountService {
             user.setPassword(password);
         }
 
-        if (email == null || email.equals("")) 
-        {
-            throw new Exception("empty_string");
-        } 
-        else if (email.length() > 50) 
-        {
-            throw new Exception("email_50");
-        } 
-        else 
-        {
-            user.setEmail(email);
-        }
-
+        // check firstname
         if (firstname == null || firstname.equals("")) 
         {
             throw new Exception("empty_string");
         } 
-        else if (firstname.length() > 50) 
+        else if (firstname.length() > 20) 
         {
-            throw new Exception("firstname_50");
-
+            throw new Exception("firstname_20");
         } 
         else 
         {
             user.setFirstName(firstname);
         }
 
+        // check lastname
         if (lastname == null || lastname.equals("")) 
         {
             throw new Exception("empty_string");
         } 
-        else if (lastname.length() > 50) 
+        else if (lastname.length() > 20) 
         {
-            throw new Exception("lastname_50");
+            throw new Exception("lastname_20");
         } 
         else 
         {
             user.setLastName(lastname);
         }
-        user.setIsAdmin(false);
-        user.setActive(false);
-
+        
+        user.setActive(active);
+        user.setRole(new Role(role));
+        
         userDB.insert(user);
     }
 
-    public void update(String username, String password, String email, String firstname, String lastname, String original) throws Exception {
-        Users user = new Users(original);
+    public void update(String email, String password, boolean active, String firstname, String lastname, int role, String original) throws Exception {
+        User user = new User(original);
+        UserDB userDB = new UserDB();
         
-        if (username == null || username.equals("")) {
+        // check email
+        if (email == null || email.equals("")) 
+        {
             throw new Exception("empty_string");
-        } else {
-            user.setUsername(username);
+        }
+        else if (email.length() > 40)
+        {
+            throw new Exception("email_40");
+        }
+        else if (userDB.get(email) == null) // check this email is avaliable for registration
+        {
+            user.setEmail(email);
+        }
+        else {
+            throw new Exception("email_exists");
         }
 
-        if (password == null || password.equals("")) {
+        // check password
+        if (password == null || password.equals("")) 
+        {
             throw new Exception("empty_string");
-        } else if (password.length() > 20) {
+        } 
+        else if (password.length() > 20) 
+        {
             throw new Exception("password_20");
 
         } else {
             user.setPassword(password);
         }
 
-        if (email == null || email.equals("")) {
+        // check firstname
+        if (firstname == null || firstname.equals("")) 
+        {
             throw new Exception("empty_string");
-
-        } else if (email.length() > 50) {
-            throw new Exception("email_50");
-        } else {
-            user.setEmail(email);
-        }
-
-        if (firstname == null || firstname.equals("")) {
-            throw new Exception("empty_string");
-        } else if (firstname.length() > 50) {
-            throw new Exception("firstname_50");
-
-        } else {
+        } 
+        else if (firstname.length() > 20) 
+        {
+            throw new Exception("firstname_20");
+        } 
+        else 
+        {
             user.setFirstName(firstname);
         }
 
-        if (lastname == null || lastname.equals("")) {
+        // check lastname
+        if (lastname == null || lastname.equals("")) 
+        {
             throw new Exception("empty_string");
-        } else if (lastname.length() > 50) {
-            throw new Exception("lastname_50");
-
-        } else {
+        } 
+        else if (lastname.length() > 20) 
+        {
+            throw new Exception("lastname_20");
+        } 
+        else 
+        {
             user.setLastName(lastname);
         }
         
-        UserDB userDB = new UserDB();
+        user.setActive(active);
+        user.setRole(new Role(role));
+
         userDB.update(user);
     }
 
-    public void delete(String username, String adminUser) throws Exception {
-        if (username.equals(adminUser)){
+    public void delete(String email, String adminUser) throws Exception {
+        if (email.equals(adminUser)){
             throw new Exception("admins_cannot_delete_themselves");
         } 
         else
         {
             UserDB userDB = new UserDB();
-            Users user = userDB.get(username);
+            User user = userDB.get(email);
             userDB.delete(user);
         }
     }

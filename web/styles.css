@@ -5,19 +5,22 @@ body {
     background: #333333;
 }
 
-
-th, td, h3, h1, p {
-    padding: 3px 20px;
-    text-align: left;
+#loginPage, #registerPage, #inventoryPage {
+    margin-left: 20%;
 }
 
 
+th, td, h3, h1{
+    padding: 3px 20px;
+    text-align: left;
+}
 
 select {
     width: 100%;
 }
 
 p {
+    margin: 5px auto;
     color: deepskyblue;
 }
 
@@ -41,4 +44,49 @@ input[type="submit"]
 a {
     text-decoration: none;
     color: inherit;
+}
+
+.registerLink { 
+
+    text-decoration: underline;
+    vertical-align: bottom;
+    margin-left: 30%;
+}
+
+.loginBtn {
+    text-align: right;
+}
+
+#loginMessaage {
+    padding: 0px 20px;
+    margin-left: 25%;
+}
+
+#registerMessaage {
+    padding: 0px 20px;
+    margin-left: 30%;
+}
+
+td[rowspan="2"] {
+    vertical-align: top;
+}
+
+.menu {
+    width: 100%;
+}
+
+.menu a {
+    width: 70%;
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: black;
+    margin: 0 20px;
+}
+
+.menu a:hover {
+    background-color: dodgerblue;
+}
+
+.menu td {
+    padding: 0;
 }
