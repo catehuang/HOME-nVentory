@@ -8,7 +8,7 @@
         <title>HOME nVentory</title>
     </head>
     <body>
-        <div id="registerPage">
+        <div class="page">
             <h1>Registration</h1>
             <form method="POST" action="register">
                 <table>

@@ -9,13 +9,13 @@
         <title>Home Inventory</title>
     </head>
     <body>
-        <div id="inventoryPage"> 
+        <div class="page"> 
             <h1>Home Inventory</h1>
             <h3>Menu</h3>
             <div>
                 <table class="menu">
-                    <tr><td><a href="inventory">Your Items</a></td></tr>
-                    <tr><td><a href="profile">Your Profile</a></td></tr>
+                    <tr><td><a href="inventory">Inventory</a></td></tr>
+                    <tr><td><a href="profile">Account</a></td></tr>
                     <tr><td><a href="admin">Admin</a></td></tr>
                     <tr><td><a href="login?logout">Logout</a></td></tr>
                 </table>

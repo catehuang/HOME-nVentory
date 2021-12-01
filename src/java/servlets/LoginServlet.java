@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         
         String query = request.getQueryString();
         
-        if(query.equals("logout"))
+        if(query != null && query.equals("logout"))
         {
             request.setAttribute("message", "logout");
         }

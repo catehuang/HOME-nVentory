@@ -5,7 +5,7 @@ body {
     background: #333333;
 }
 
-#loginPage, #registerPage, #inventoryPage {
+.page{
     margin-left: 20%;
 }
 

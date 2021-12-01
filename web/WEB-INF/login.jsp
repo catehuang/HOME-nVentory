@@ -9,7 +9,7 @@
         <title>HOME nVentory</title>
     </head>
     <body>
-        <div id="loginPage">
+        <div class="page">
             <h1>HOME nVentory</h1>
             <h3>Login</h3>
             <form method="POST" action="login">
