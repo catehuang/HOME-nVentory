@@ -40,6 +40,10 @@ input[type="submit"]
     cursor:pointer;
 }
 
+input, select {
+    background: #e6e6e6;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -95,6 +99,16 @@ td[rowspan="2"] {
     margin-left: 20px;
 }
 .tableA tr {
-    background-color: darkviolet;
-    
+    background-color: black;    
 }
+
+.tableB {
+    width: 80%;
+    margin-left: 20px;
+}
+
+.tableB tr {
+    background-color: black;    
+}
+
+

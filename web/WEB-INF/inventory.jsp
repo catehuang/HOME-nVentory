@@ -14,7 +14,8 @@
             <h3>Menu</h3>
             <div>
                 <table class="menu">
-                    <tr><td><a href="inventory">Inventory</a></td></tr>
+                    <tr><td><a href="inventory">Your Items</a></td></tr>
+                    <tr><td><a href="profile">Your Profile</a></td></tr>
                     <tr><td><a href="admin">Admin</a></td></tr>
                     <tr><td><a href="login?logout">Logout</a></td></tr>
                 </table>
@@ -73,11 +74,11 @@
                         <td><input type="text" name="item" value="${item.itemName}"></td>
                     </tr>
                     <tr>
-                        <td><label>Price: </label></td>
+                        <td rowspan="2"><label>Price: </label></td>
                         <td><input type="text" name="price" value="${item.price}"></td>
                     </tr>
                     <tr>
-                        <td colp="2">
+                        <td>
                             <input type="submit" value="Save">
                             <input type="hidden" name="action" value="create">
                             <input type="hidden" name="key" value="${item}">
