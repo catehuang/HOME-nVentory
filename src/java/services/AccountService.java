@@ -109,9 +109,10 @@ public class AccountService {
         userDB.insert(user);
     }
 
-    public void update(String email, String password, boolean active, String firstname, String lastname, int role, String original) throws Exception {
-        User user = new User(original);
+    public void update(String email, String password, boolean active, String firstname, String lastname, int role, String login_email) throws Exception {
         UserDB userDB = new UserDB();
+        User login_user = userDB.get(login_email);
+        User user = new User();
         
         // check email
         if (email == null || email.equals("")) 
@@ -174,6 +175,10 @@ public class AccountService {
         user.setActive(active);
         user.setRole(new Role(role));
 
+        if (! email.equals(login_email))
+        {
+            delete(login_email, login_email);
+        }
         userDB.update(user);
     }
 

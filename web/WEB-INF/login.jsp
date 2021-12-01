@@ -20,7 +20,7 @@
                     </tr>
                     <tr>
                         <td rowspan="2"><lable>Password: </lable></td>
-                        <td><input type="password" name="password" value="${password}"></td>
+                    <td><input type="password" name="password" value="${password}"></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Login"><span class="registerLink"><a href="register">Register</a></span></td>
@@ -39,6 +39,9 @@
                 </c:if>
                 <c:if test="${message eq 'logout'}">
                     <p>You have successfully logged out.</p>
+                </c:if> 
+                <c:if test="${message eq 'deactivated_account'}">
+                    <p>This account is deactivated. Please contact administrators to reactivate account.</p>
                 </c:if> 
             </div>
         </div>

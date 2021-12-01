@@ -15,7 +15,7 @@
             <div>
                 <table class="menu">
                     <tr><td><a href="inventory">Inventory</a></td></tr>
-                    <tr><td><a href="profile">Account</a></td></tr>
+                    <tr><td><a href="account">Account</a></td></tr>
                     <tr><td><a href="admin">Admin</a></td></tr>
                     <tr><td><a href="login?logout">Logout</a></td></tr>
                 </table>

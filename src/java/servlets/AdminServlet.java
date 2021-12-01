@@ -85,10 +85,6 @@ public class AdminServlet extends HttpServlet {
                     {
                         //String email, String password, boolean active, String firstname, String lastname, int role, String original
                         as.update(email, password, true, firstname, lastname, 2, original);
-                        if (! email.equals(original))
-                        {
-                            as.delete(original, original);
-                        }
                         request.setAttribute("message", "updated");
                     }
                     catch (Exception ex)
