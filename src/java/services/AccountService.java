@@ -179,22 +179,30 @@ public class AccountService {
         user.setActive(active);
         user.setRole(new Role(role));
 
-        if (! email.equals(login_email))
+        if (! email.equals(login_email))    // update PK email
         {
-            delete(login_email, login_email);
+            login_user.setActive(false);
         }
+        userDB.update(login_user);
         userDB.update(user);
     }
 
-    public void delete(String email, String adminUser) throws Exception {
-        if (email.equals(adminUser)){
-            throw new Exception("admins_cannot_delete_themselves");
-        } 
+    public void delete(String email, String login_email) throws Exception {
+        UserDB userDB = new UserDB();
+        User user = userDB.get(email);
+        User login_user = userDB.get(login_email);
+        
+        if (login_user.getRole().getRoleId().equals(1)) // system admin
+        {
+            if (user.equals(login_user)) //system admins delete themselves 
+            {
+                throw new Exception("admins_cannot_delete_themselves");
+            }
+            userDB.delete(user);
+        }
         else
         {
-            UserDB userDB = new UserDB();
-            User user = userDB.get(email);
-            userDB.delete(user);
+            throw new Exception("no_priviledge_to_delete");
         }
     }
 }

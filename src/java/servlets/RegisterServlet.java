@@ -27,10 +27,15 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
+        String email = "";
+        String password = "";
+        String firstname = "";
+        String lastname = "";
+        
+        email = request.getParameter("email");
+        password = request.getParameter("password");
+        firstname = request.getParameter("firstname");
+        lastname = request.getParameter("lastname");
         
         AccountService as = new AccountService();
         User user = new User();

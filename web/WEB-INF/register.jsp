@@ -14,19 +14,19 @@
                 <table>
                     <tr>
                         <td>Email Address</td>
-                        <td><input type="text" maxlength="40" name="email" value="${email}"></td>
+                        <td><input type="text" maxlength="40" name="email" value="${user.email}"></td>
                     </tr>
                     <tr>
                         <td>Password</td>
-                        <td><input type="password" maxlength="20" name="password" value="${password}"></td>
+                        <td><input type="password" maxlength="20" name="password" value="${user.password}"></td>
                     </tr>
                     <tr>
                         <td>First Name</td>
-                        <td><input type="text" maxlength="20" name="firstname" value="${firstname}"></td>
+                        <td><input type="text" maxlength="20" name="firstname" value="${user.firstName}"></td>
                     </tr>
                     <tr>
                         <td rowspan="2">Last Name</td>
-                        <td><input type="text" maxlength="20" name="lastname" value="${lastname}"></td>
+                        <td><input type="text" maxlength="20" name="lastname" value="${user.lastName}"></td>
                     </tr>
                     <tr><td><input type="submit" value="Register"><td></tr>
                 </table>
