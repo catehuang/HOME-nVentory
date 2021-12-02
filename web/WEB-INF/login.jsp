@@ -41,7 +41,7 @@
                     <p>You have successfully logged out.</p>
                 </c:if> 
                 <c:if test="${message eq 'deactivated_account'}">
-                    <p>This account is deactivated. Please contact administrators to reactivate account.</p>
+                    <p>This account is deactivated. Please contact system administrator to reactivate account.</p>
                 </c:if> 
             </div>
         </div>

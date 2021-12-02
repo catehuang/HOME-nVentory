@@ -28,7 +28,7 @@ public class InventoryService {
 
         //item.setItemId(itemID);
         item.setCategory(categoriesDB.get(categoryID));
-        
+
         if (itemName == null || itemName.equals("")) {
             throw new Exception("invalid_input");
         } else {
@@ -37,12 +37,9 @@ public class InventoryService {
 
         if (string_price == null || string_price.equals("")) {
             throw new Exception("invalid_input");
-        } 
-        else 
-        {
+        } else {
             double price = Double.parseDouble(string_price);
-            if (price <= 0 || price >= 10000)
-            {
+            if (price <= 0 || price >= 10000) {
                 throw new Exception("invalid_input");
             }
             item.setPrice(price);
@@ -51,16 +48,41 @@ public class InventoryService {
         item.setOwner(userDB.get(email));
         itemDB.insert(item);
     }
-/*
-    public void update(Integer itemID, String itemName, double price, String owner) throws Exception {
-        ItemDB itemDB = new ItemDB();
-        Item item = itemDB.get(itemID);
-        item.setItemName(itemName);
-        item.setPrice(price);
 
-        itemDB.update(item);
+    public void update(Integer itemID, int categoryID, String itemName, String string_price, String email) throws Exception {
+        ItemDB itemDB = new ItemDB();
+        UserDB userDB = new UserDB();
+        CategoryDB categoriesDB = new CategoryDB();
+
+        Item item = itemDB.get(itemID);
+        User owner = item.getOwner();
+
+        if (!owner.getEmail().equals(email)) {
+            throw new Exception("not_belong_to_you");
+        } else {
+            //item.setItemId(itemID);
+            item.setCategory(categoriesDB.get(categoryID));
+
+            if (itemName == null || itemName.equals("")) {
+                throw new Exception("invalid_input");
+            } else {
+                item.setItemName(itemName);
+            }
+
+            if (string_price == null || string_price.equals("")) {
+                throw new Exception("invalid_input");
+            } else {
+                double price = Double.parseDouble(string_price);
+                if (price <= 0 || price >= 10000) {
+                    throw new Exception("invalid_input");
+                }
+                item.setPrice(price);
+            }
+
+            itemDB.update(item);
+        }
     }
-*/
+
     public void delete(Integer itemID, User user) throws Exception {
         ItemDB itemDB = new ItemDB();
       

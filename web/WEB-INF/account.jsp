@@ -8,19 +8,19 @@
         <title>HOME nVentory</title>
     </head>
     <body>
-        <div class="page">
-            <h3>Menu</h3>
-            <div>
-                <table class="menu">
-                    <tr><td><a href="inventory">Inventory</a></td></tr>
-                    <tr><td><a href="account">Account</a></td></tr>
-                    <tr><td><a href="admin">Admin</a></td></tr>
-                    <tr><td><a href="login?logout">Logout</a></td></tr>
-                </table>
-            </div>
-            <h1>Your Account Information</h1>
+        <div class="nav">
+            <ul>
+                <li><a href="inventory">Inventory</a></li>
+                <li><a href="account">Account</a></li>
+                <li><a href="admin">Admin</a></li>
+                <li><a href="#">Hello ${user.firstName} ${user.lastName}</a></li>
+                <li><a href="login?logout">Logout</a></li>
+            </ul>
+        </div>
+        <h1>Your Account Information</h1>
+        <div>
             <form method="POST" action="account">
-                <table>
+                <table class="tableForm">
                     <tr>
                         <td>Email</td>
                         <td><input type="text" name="email" value="${user.email}"></td>
