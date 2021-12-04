@@ -118,3 +118,10 @@ td[rowspan="2"] {
     padding: 10px 10px;
 
 }
+
+button {
+    padding: 5.5px 8px;
+    border-radius: 3px;
+    border: none;
+    margin-left: 40px;
+}

@@ -57,7 +57,7 @@ public class InventoryService {
         Item item = itemDB.get(itemID);
         User owner = item.getOwner();
 
-        if (!owner.getEmail().equals(email)) {
+            if (!owner.getEmail().equals(email)) {
             throw new Exception("not_belong_to_you");
         } else {
             //item.setItemId(itemID);

@@ -18,7 +18,7 @@
                 <li><a href="login?logout">Logout</a></li>
             </ul>
         </div>
-                
+
         <h1>Home Inventory</h1>
 
         <table class="tableItem">
@@ -37,15 +37,15 @@
                     <td>
                         <form method="get">
                             <input type="submit" value="Edit">
-                            <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="key" value="${item.getItemId()}">
+                            <input type="hidden" name="action" value="retrieve">
+                            <input type="hidden" name="itemID" value="${item.itemId}">
                         </form>
                     </td>
                     <td>
                         <form method="post">
                             <input type="submit" value="Delete">
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="key" value="${item.getItemId()}">
+                            <input type="hidden" name="itemID" value="${item.itemId}">
                         </form>
                     </td>
                 </tr>
@@ -60,78 +60,81 @@
         <c:if test="${message eq 'added'}">
             <p>An item has been successfully added.</p>
         </c:if>  
+        <c:if test="${message eq 'updated'}">
+            <p>An item has been successfully updated.</p>
+        </c:if>  
 
-        <c:if test="${mode eq 'add'}">
-            <form method="POST" action="inventory">
-                <h1>Add An Item</h1>
-                <table class="tableForm">
-                    <tr>
-                        <td><label>Category</label></td>
-                        <td>
-                            <select name="category">
-                                <c:forEach items="${categoryList}" var="c">
-                                    <option value=${c.getCategoryId()}
-                                            <c:if test="${c.equals(item.category)}">selected</c:if>
-                                            >${c.getCategoryName()}</option>
-                                </c:forEach>
-                            </select>                        
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Item Name: </label></td>
-                        <td><input type="text" name="item" value="${item.itemName}"></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2"><label>Price: </label></td>
-                        <td><input type="text" name="price" value="${item.price}"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Save">
-                            <input type="hidden" name="action" value="create">
-                            <input type="hidden" name="key" value="${item}">
-                        </td>
+        <c:choose>
+            <c:when test="${display eq 'edit_page'}">
+                <form method="POST" action="inventory">
+                    <h2>Edit Item</h2>
+                    <table class="tableForm">
+                        <tr>
+                            <td><label>Category</label></td>
+                            <td>
+                                <select name="category">
+                                    <c:forEach items="${categoryList}" var="c">
+                                        <option value=${c.getCategoryId()}
+                                                <c:if test="${c.equals(item.category)}">selected</c:if>
+                                                >${c.getCategoryName()}</option>
+                                    </c:forEach>
+                                </select>                        
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Item Name: </label></td>
+                            <td><input type="text" name="itemName" value="${item.itemName}"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><label>Price: </label></td>
+                            <td><input type="text" name="price" value="${item.price}"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Save">
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="itemID" value="${item.itemId}">
+                            </td>
+                        
+                        </tr>
+                    </table>
+                </form>  
+            </c:when>
+            <c:otherwise>
+                <form method="POST" action="inventory">
+                    <h1>Add Item</h1>
+                    <table class="tableForm">
+                        <tr>
+                            <td><label>Category</label></td>
+                            <td>
+                                <select name="category">
+                                    <c:forEach items="${categoryList}" var="c">
+                                        <option value=${c.getCategoryId()}
+                                                <c:if test="${c.equals(item.category)}">selected</c:if>
+                                                >${c.getCategoryName()}</option>
+                                    </c:forEach>
+                                </select>                        
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Item Name: </label></td>
+                            <td><input type="text" name="itemName" value="${item.itemName}"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><label>Price: </label></td>
+                            <td><input type="text" name="price" value="${item.price}"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Save">
+                                <input type="hidden" name="action" value="add">
+                            </td>
 
-                    </tr>
-                </table>
-            </form>  
-        </c:if>
-
-        <c:if test="${mode eq 'edit'}">
-            <form method="POST" action="inventory">
-                <h2>Edit An Item</h2>
-                <table class="tableForm">
-                    <tr>
-                        <td><label>Category</label></td>
-                        <td>
-                            <select name="category">
-                                <c:forEach items="${categoryList}" var="c">
-                                    <option value=${c.getCategoryId()}
-                                            <c:if test="${c.equals(item.category)}">selected</c:if>
-                                            >${c.getCategoryName()}</option>
-                                </c:forEach>
-                            </select>                        
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Item Name: </label></td>
-                        <td><input type="text" name="item" value="${item.itemName}"></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2"><label>Price: </label></td>
-                        <td><input type="text" name="price" value="${item.price}"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Save">
-                            <input type="hidden" name="action" value="update">
-                            <input type="hidden" name="key" value="${item.getItemId()}">
-                        </td>
-
-                    </tr>
-                </table>
-            </form>  
-        </c:if>
+                        </tr>
+                    </table>
+                </form>  
+            </c:otherwise>
+        </c:choose>
         <c:if test="${message eq 'invalid_input'}">
             <p>Error. Please enter all fields.</p> 
             <p>Hint: the range of price is 0 to 9999.</p>
