@@ -11,10 +11,10 @@
     <body>            
         <div class="nav">
             <ul>
+                <li><a href="#" class="welcome">Hello ${user.firstName} ${user.lastName}</a></li>
                 <li><a href="inventory">Inventory</a></li>
                 <li><a href="account">Account</a></li>
                 <li><a href="admin">Admin</a></li>
-                <li><a href="#">Hello ${user.firstName} ${user.lastName}</a></li>
                 <li><a href="login?logout">Logout</a></li>
             </ul>
         </div>

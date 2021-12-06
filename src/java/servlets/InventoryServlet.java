@@ -55,7 +55,7 @@ public class InventoryServlet extends HttpServlet {
             switch (action)
             {
                 // Retrieve item information for further update
-                case "retrieve";
+                case "retrieve":
                     Item item;
                     int itemID = Integer.parseInt(request.getParameter("itemID"));
                     try {
