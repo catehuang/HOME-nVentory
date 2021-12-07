@@ -8,49 +8,56 @@
         <title>Home Inventory</title>
     </head>
     <body>
-        <h1>Home Inventory</h1>
-        <div>
-            <h3>Menu</h3>
-                <table class="menu">
-                    <tr><td><a href="inventory">Inventory</a></td></tr>
-                    <tr><td><a href="admin">Admin</a></td></tr>
-                    <tr><td><a href="login?logout">Logout</a></td></tr>
-                </table>
+        <div class="nav">
+            <ul>
+                <li><a href="#" class="welcome">Hello ${user.firstName} ${user.lastName}</a></li>
+                <li><a href="inventory">Inventory</a></li>
+                <li><a href="account">Account</a></li>
+                <li><a href="admin">Admin</a></li>
+                <li><a href="login?logout">Logout</a></li>
+            </ul>
         </div>
-
-        <div>
-            <h3>Manage Users</h3>
-            <table>
-                <tr>
-                    <th>Username</th>
+                
+        <h1>Manage Users</h1>   
+        <table class="border">
+                <tr class="border">
+                    <th>Email</th>
+                    <th>Password</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Role</th>
+                    <th>Active</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
 
-                <c:forEach items="${users}" var="user">
+                <c:forEach items="${all_users}" var="stored_user">
                     <tr>
-                        <td>${user.username}</td>
-                        <td>${user.firstName}</td>
-                        <td>${user.lastName}</td>
+                        <td>${stored_user.email}</td>
+                        <td>${stored_user.password}</td>
+                        <td>${stored_user.firstName}</td>
+                        <td>${stored_user.lastName}</td>
+                        <td>${stored_user.role.getRoleName()}</td>
+                        <td>${stored_user.active}</td>
                         <td>
                             <form method="get">
                                 <input type="submit" value="Edit">
                                 <input type="hidden" name="action" value="edit">
-                                <input type="hidden" name="key" value="${user.username}">
+                                <input type="hidden" name="key" value="${stored_user.email}">
                             </form>
                         </td>
                         <td>
                             <form method="post">
                                 <input type="submit" value="Delete">
                                 <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="key" value="${user.username}">
+                                <input type="hidden" name="key" value="${stored_user.email}">
                             </form>
                         </td>
                     </tr>
                 </c:forEach>
+ 
             </table>
+
             <c:if test="${message eq 'admins_cannot_delete_themselves'}">
                 <p>Admin users cannot delete themselves</p>
             </c:if>
@@ -63,107 +70,139 @@
             <c:if test="${message eq 'deleted'}">
                 <p>A user has been successfully deleted.</p>
             </c:if>      
-        </div>
-
-
-        <c:if test="${mode eq 'add'}">
-            <div>
-                <h3>Add User</h3>            
+        
+            <c:choose>
+               <c:when test="${display eq 'edit_page'}">
+                <h1>Edit User</h1> 
                 <form method="POST" action="admin">
                     <table>
                         <tr>
-                            <td><label>Username: </label></td>
-                            <td><input type="text" name="username" value="${user.username}"> </td>
+                            <td><label>Email </label></td>
+                            <td><input type="text" name="email" value="${selected_user.email}"> </td>
                         </tr>
                         <tr>
-                            <td><label>Password: </label></td>
-                            <td><input type="password" name="password" value="${user.password}"> </td>
+                            <td><label>Password </label></td>
+                            <td><input type="password" name="password" value="${selected_user.password}"> </td>
                         </tr>
                         <tr>
-                            <td><label>Email: </label></td>
-                            <td><input type="text" name="email" value="${user.email}"> </td>
+                            <td><label>First Name </label></td>
+                            <td><input type="text" name="firstname" value="${selected_user.firstName}"> </td>
                         </tr>
                         <tr>
-                            <td><label>First Name: </label></td>
-                            <td><input type="text" name="firstname" value="${user.firstName}"> </td>
+                            <td><label>Last Name </label></td>
+                            <td><input type="text" name="lastname" value="${selected_user.lastName}"> </td>
                         </tr>
+                        
                         <tr>
-                            <td><label>Last Name: </label></td>
-                            <td><input type="text" name="lastname" value="${user.lastName}"> </td>
-                        </tr>
-                        <tr>
+                            <td><label>Role</label></td>
                             <td>
-                                <input type="submit" value="Save">
+                                <select name="role">
+                                    <c:forEach items="${roleList}" var="r">
+                                        <option value="${r.getRoleId()}"
+                                                <c:if test="${r.equals(selected_user.role)}">selected</c:if>
+                                                >${r.getRoleName()}</option>
+                                    </c:forEach>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Active</label></td>
+                            <td>
+                            <input type="checkbox" name="active" value="${selected_user.active}"
+                                   <c:if test="${selected_user.active}">checked</c:if>> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" value="Update">
+                                <input type="hidden" name="action" value="update">
+                            </td>
+                        </tr>
+                        <tr><a href="admin" class="btn">Cancel</a></tr>
+                    </table>
+                </form> 
+               </c:when>
+               
+                <c:otherwise>
+                <h1>Add User</h1>            
+                <form method="POST" action="admin" class="tableForm">
+                    <table>
+                        <tr>
+                            <td><label>Email</label></td>
+                            <td><input type="text" name="email" value="${add_user.email}"></td>
+                        </tr>
+
+                        <tr>
+                            <td><label>Password</label></td>
+                            <td><input type="password" name="password" value="${add_user.password}"></td>
+                        </tr>
+                       
+                        <tr>
+                            <td><label>First Name</label></td>
+                            <td><input type="text" name="firstname" value="${add_user.firstName}"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><label>Last Name </label></td>
+                            <td><input type="text" name="lastname" value="${add_user.lastName}"></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><label>Role</label></td>
+                            <td>
+                                <select name="role">
+                                    <c:forEach items="${roleList}" var="r">
+                                        <option value="${r.getRoleId()}"
+                                                <c:if test="${r.equals(add_user.role)}">selected</c:if>
+                                                >${r.getRoleName()}</option>
+                                    </c:forEach>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Active</label></td>
+                            <td>
+                            <input type="checkbox" name="active" value="${add_user.active}"
+                                   <c:if test="${add_user.active}">checked</c:if>> 
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" value="Add">
                                 <input type="hidden" name="action" value="add">
                             </td>
+                        </tr>
+                        <tr>
                             <td>
-                                <a href="admin" class="btn">Clear</a>
+                                <a href="admin" class="small center underline">Clear</a>
                             </td>
                         </tr>
                     </table>
                 </form>
-            </div>
-        </c:if>
-
-        <c:if test="${mode eq 'edit'}">
-            <div>
-                <h3>Edit User</h3> 
-                <form method="POST" action="admin">
-                    <table>
-                        <tr>
-                            <td><label>Username: </label></td>
-                            <td><input type="text" name="username" value="${selectedUser.username}"> </td>
-                        </tr>
-                        <tr>
-                            <td><label>Password: </label></td>
-                            <td><input type="password" name="password" value="${selectedUser.password}"> </td>
-                        </tr>
-                        <tr>
-                            <td><label>Email: </label></td>
-                            <td><input type="text" name="email" value="${selectedUser.email}"> </td>
-                        </tr>
-                        <tr>
-                            <td><label>First Name </label></td>
-                            <td><input type="text" name="firstname" value="${selectedUser.firstName}"> </td>
-                        </tr>
-                        <tr>
-                            <td><label>Last Name </label></td>
-                            <td><input type="text" name="lastname" value="${selectedUser.lastName}"> </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="submit" value="Update">
-                                <input type="hidden" name="action" value="update">
-                            </td>
-                            <td>
-                                <a href="admin" class="btn">Cancel</a>
-                            </td>
-                        </tr>
-                    </table>
-                </form>                
-            </div>
-        </c:if>
-
-        <c:if test="${message eq 'email_exists'}">
-            <p>Error. Email exists.</p>
-        </c:if>
-        <c:if test="${message eq 'empty_string'}">
-            <p>Error. Please fill all fields.</p>
-        </c:if>
-        <c:if test="${message eq 'password_20'}">
-            <p>Error. The maximum length for password is 20.</p>
-        </c:if>    
-        <c:if test="${message eq 'email_40'}">
-            <p>Error. The maximum length for email is 40.</p>
-        </c:if> 
-        <c:if test="${message eq 'lastname_20'}">
-            <p>Error. The maximum length for lastname is 20.</p>
-        </c:if> 
-        <c:if test="${message eq 'firstname_20'}">
-            <p>Error. The maximum length for firstname is 20.</p>
-        </c:if> 
-        <c:if test="${message eq 'failed_from_DB'}">
-            <p>Error. Failed to add user.</p>
-        </c:if> 
+                </c:otherwise>
+        </c:choose>  
+        
+        <c:choose>
+            <c:when test="${message eq 'email_exists'}">
+                <p>Error. Email exists.</p>
+            </c:when>
+            <c:when test="${message eq 'empty_string'}">
+                <p>Error. Please fill all fields.</p>
+            </c:when>
+            <c:when test="${message eq 'password_20'}">
+                <p>Error. The maximum length for password is 20.</p>
+            </c:when>    
+            <c:when test="${message eq 'email_40'}">
+                <p>Error. The maximum length for email is 40.</p>
+            </c:when> 
+            <c:when test="${message eq 'lastname_20'}">
+                <p>Error. The maximum length for lastname is 20.</p>
+            </c:when> 
+            <c:when test="${message eq 'firstname_20'}">
+                <p>Error. The maximum length for firstname is 20.</p>
+            </c:when> 
+            <c:when test="${message eq 'failed_from_DB'}">
+                <p>Error. Failed to add user.</p>
+            </c:when> 
+        </c:choose>
     </body>
 </html>

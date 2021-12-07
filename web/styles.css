@@ -1,80 +1,8 @@
 body {
     margin: 0 auto;
-    color: #e6e6e6;
-    background: #333333;
     text-align: center;
-}
-
-h1, h2 {
-    margin: 30px auto;
-}
-
-table {
-    margin: 0 auto;
-    min-width: 40%;
-}
-
-th, td {
-    padding: 5px 20px;
-    text-align: left;
-}
-
-
-select {
-    width: 65%;
-}
-
-p {
-    margin: 5px auto;
-    color: deepskyblue;
-}
-
-.btn {
-    text-decoration: none;
-    cursor: default;
-    display: inline-block;
-    width: 100%;
-}
-
-
-input[type="submit"]
-{
-    border-radius: 3px;
-    border: 1px solid black;
-    padding: 5px 8px;
-    cursor:pointer;
-}
-
-input, select {
-    background: #e6e6e6;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.registerLink { 
-    text-decoration: underline;
-    vertical-align: bottom;
-    margin-left: 30%;
-}
-
-.loginBtn {
-    text-align: right;
-}
-
-#loginMessaage {
-    padding: 0px 20px;
-}
-
-#registerMessaage {
-    padding: 0px 20px;
-    margin-left: 25%;
-}
-
-td[rowspan="2"] {
-    vertical-align: top;
+    color: #e6e6e6;
+    background: #000000;
 }
 
 .nav ul {
@@ -82,7 +10,7 @@ td[rowspan="2"] {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: black;
+    background-color: #333333;
 }
 
 .nav li {
@@ -95,15 +23,19 @@ td[rowspan="2"] {
 
 .nav a {
     text-decoration: none;
-    background: black;
+    background: #333333;
     display: block;
     padding: 5px 20px;
     text-align: center;
 }
 
 .nav a:hover {
-    color: #cfefff; 
+    color: #e6e6e6; 
     background-color: #000099;
+}
+
+h1 {
+    margin: 40px auto;
 }
 
 .welcome {
@@ -111,23 +43,88 @@ td[rowspan="2"] {
     color: #ffff66; 
 }
 
-.username {
-    float: right;
+form{
+    margin: 0 auto;
+    text-align: center;
 }
 
-.tableItem {
-    background-color: #00004d;
+table {
+    margin: 0 auto;
+    text-align: left;
 }
 
-.tableForm {
-    padding: 10px 10px;
-
+label {
+    padding: 5px 5px;
 }
 
-button {
-    padding: 5.5px 8px;
+input {
+    background-color: #e6e6e6;
+}
+
+select {
+    width: 100%;
+}
+
+.login_input {
+    padding: 5px 5px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+input[type="submit"]
+{
+    margin: 10px 0 0 0;
     border-radius: 3px;
-    border: none;
-    margin-left: 40px;
+    border: 1px solid black;
+    padding: 5px 5px;
+    width: 100%;
+    cursor:pointer;
+    background-color: #339966;
+    color: #e6e6e6;
 }
 
+p {
+    color: deepskyblue;
+    font-size: small;
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.small {
+    font-size: small;
+}
+
+.green {
+    background-color: #339966;
+    color: #e6e6e6;
+}
+
+.underline {
+    text-decoration: underline;
+    vertical-align: bottom; 
+}
+
+.nopadding {
+    padding: 0 10px;
+}
+
+.border {
+    border-collapse: collapse;
+    border: 1px solid #e6e6e6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+td, th {
+    padding: 5px 10px;
+}

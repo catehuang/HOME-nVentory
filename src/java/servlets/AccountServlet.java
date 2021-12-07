@@ -39,12 +39,12 @@ public class AccountServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String login_user = (String) session.getAttribute("email");
-        String email = (String) (request.getParameter("email"));
-        String password = (String) (request.getParameter("password"));
-        String firstname = (String) (request.getParameter("firstname"));
-        String lastname = (String) (request.getParameter("lastname"));
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
         int role = Integer.parseInt(request.getParameter("role"));
-        String active_string = (String) request.getParameter("active");
+        String active_string = request.getParameter("active");
 
         boolean active = false;
         if (active_string != null) {

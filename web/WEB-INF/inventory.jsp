@@ -117,15 +117,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Item Name: </label></td>
+                            <td><label>Item Name </label></td>
                             <td><input type="text" name="itemName" value="${item.itemName}"></td>
                         </tr>
                         <tr>
-                            <td rowspan="2"><label>Price: </label></td>
+                            <td><label>Price </label></td>
                             <td><input type="text" name="price" value="${item.price}"></td>
                         </tr>
                         <tr>
-                            <td>
+                            <td colspan="2">
                                 <input type="submit" value="Save">
                                 <input type="hidden" name="action" value="add">
                             </td>

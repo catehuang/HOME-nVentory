@@ -77,6 +77,7 @@ public class UserDB {
             trans.commit();
         } catch (Exception ex) {
             trans.rollback();
+            throw new Exception(ex);
         } finally {
             em.close();
         }

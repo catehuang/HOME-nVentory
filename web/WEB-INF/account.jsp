@@ -22,23 +22,23 @@
             <form method="POST" action="account">
                 <table class="tableForm">
                     <tr>
-                        <td>Email</td>
+                        <td><label>Email</label></td>
                         <td><input type="text" name="email" value="${user.email}"></td>
                     </tr>
                     <tr>
-                        <td>Password</td>
+                        <td><label>Password</label></td>
                         <td><input type="password" name="password" value="${user.password}"></td>
                     </tr>
                     <tr>
-                        <td>First Name</td>
+                        <td><label>First Name</label></td>
                         <td><input type="text" name="firstname" value="${user.firstName}"></td>
                     </tr>
                     <tr>
-                        <td>Last Name</td>
+                        <td><label>Last Name</label></td>
                         <td><input type="text" name="lastname" value="${user.lastName}"></td>
                     </tr>
                     <tr>
-                        <td>Role</td>
+                        <td><label>Role</label></td>
                         <td>
                             <select name="role">
                                 <c:forEach items="${roleList}" var="r">
@@ -49,13 +49,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td rowspan="2">Active</td>
+                        <td><label>Active</label></td>
                         <td>
                             <input type="checkbox" name="active" value="${user.active}"
                                    <c:if test="${user.active}">checked</c:if>> 
                             </td>
-                        </tr>
-                        <tr><td><input type="submit" value="Update"></td></tr>
+                    </tr>
+                    <tr><td colspan="2"><input type="submit" value="Update"></td></tr>
                     </table>
                 </form>
             <c:if test="${message eq 'updated'}">

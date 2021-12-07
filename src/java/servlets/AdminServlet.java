@@ -1,5 +1,6 @@
 package servlets;
 
+import dataaccess.RoleDB;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,15 +19,33 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // information of login user
         HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        AccountService as = new AccountService();
+        User user = as.get(email);
+        request.setAttribute("user", user);
+        
+        // provide information for displaying all users
+        List<User> all_users = as.getAll();
+        request.setAttribute("all_users", all_users);
+        
+        // display role list
+        RoleDB roleDB = new RoleDB();
+        request.setAttribute("roleList", roleDB.getAll());
+        
+        // prepare information for updating
+        String action = request.getParameter("action");
+        if (action != null && !action.equals(""))
+        {
+            String selected_email = (String) request.getParameter("key");
+            User selected_user = as.get(selected_email);
+            request.setAttribute("selected_user", selected_user);
+            request.setAttribute("display", "edit_page");
+        }
+        /*
         String action = request.getParameter("action");
         String mode = "add";
-
-        AccountService as = new AccountService();
-        
-        List<User> users = as.getAll();
-
-        request.setAttribute("users", users);
         request.setAttribute("as", as);
 
         if (action != null && !action.equals("") && action.equals("edit")) {
@@ -39,6 +58,7 @@ public class AdminServlet extends HttpServlet {
         }
 
         request.setAttribute("mode", mode);
+*/
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
         return;
     }
@@ -48,24 +68,34 @@ public class AdminServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String email = request.getParameter("email");
         String action = request.getParameter("action");
-
+        
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
+        int role_id;
+        String active_string = request.getParameter("active");
+        boolean active = false;
+        
+        if (active_string != null) {
+            active = true;
+        }
 
         AccountService as = new AccountService();
         User user = new User();
         
-        String mode = "add";
+        String display = "";
 
+        System.out.println("here " + action);
+        
         try {
             switch (action) {
                 case "add":
+                    role_id = Integer.parseInt(request.getParameter("role"));
                     try 
                     {
-                        as.insert(email, password, true, firstname, lastname, 2);
+                        as.insert(email, password, active, firstname, lastname, role_id);
                         request.setAttribute("message", "added");
                     }
                     catch (Exception ex)
@@ -74,17 +104,20 @@ public class AdminServlet extends HttpServlet {
                         user.setPassword(password);
                         user.setFirstName(firstname);
                         user.setLastName(lastname);
-                        request.setAttribute("user", user);
+                        user.setActive(active);
+                        user.setRole(new Role(role_id));
+                        request.setAttribute("selected_user", user);
                         request.setAttribute("message", ex.getMessage());
-                        mode = "edit";
+                        display = "edit_page";
                     }
                     break;
                 case "update":
-                    String original = (String) session.getAttribute("originalUser");
+                    String login_email = (String) session.getAttribute("login_email");
+                    role_id = Integer.parseInt(request.getParameter("role"));
                     try
                     {
-                        //String email, String password, boolean active, String firstname, String lastname, int role, String original
-                        as.update(email, password, true, firstname, lastname, 2, original);
+                        //String email, String password, boolean active, String firstname, String lastname, int role, String email
+                        as.update(email, password, active, firstname, lastname, role_id, email);
                         request.setAttribute("message", "updated");
                     }
                     catch (Exception ex)
@@ -93,21 +126,25 @@ public class AdminServlet extends HttpServlet {
                         user.setEmail(email);
                         user.setFirstName(firstname);
                         user.setLastName(lastname);
-                        request.setAttribute("selectedUser", user);
+                        user.setActive(active);
+                        user.setRole(new Role(role_id));
+                        request.setAttribute("selected_user", user);
                         request.setAttribute("message", ex.getMessage());  
-                        mode = "edit";
+                        System.out.println(ex.getMessage());
+                        display = "edit_page";
                     }
                     break;
                 case "delete":
-                    String deleteThis = request.getParameter("key");
-                    String adminUser = (String) session.getAttribute("email");
+                    String delete_email = request.getParameter("key");
+                    String login_user = (String) session.getAttribute("email");
                     try
                     {
-                        as.delete(deleteThis, adminUser);
+                        as.delete(delete_email, login_user);
                         request.setAttribute("message", "deleted");
                     }
                     catch (Exception ex)
                     {
+                        System.out.println(ex.getMessage());
                         request.setAttribute("message", ex.getMessage()); 
                     }
                     break;
@@ -116,9 +153,20 @@ public class AdminServlet extends HttpServlet {
             Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        List<User> users = as.getAll();
-        request.setAttribute("users", users);
-        request.setAttribute("mode", mode);
+        // display login user name
+        String login_email = (String) session.getAttribute("email");
+        User login_user = as.get(login_email);
+        request.setAttribute("user", login_user);
+        
+        // provide information for displaying all users
+        List<User> all_users = as.getAll();
+        request.setAttribute("all_users", all_users);
+        
+        // display role list
+        RoleDB roleDB = new RoleDB();
+        request.setAttribute("roleList", roleDB.getAll());
+        
+        request.setAttribute("display", display);
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
         return;
     }

@@ -29,9 +29,7 @@ public class AccountService {
 
     public User get(String email) {
         UserDB userDB = new UserDB();
-        User user = null;
-
-        user = userDB.get(email);
+        User user = userDB.get(email);
         return user;
     }
 
@@ -179,12 +177,17 @@ public class AccountService {
         user.setActive(active);
         user.setRole(new Role(role));
 
+        try {
+            userDB.update(user);
+        } catch (Exception ex)
+        {
+            throw new Exception(ex);
+        }
+        
         if (! email.equals(login_email))    // update PK email
         {
             login_user.setActive(false);
         }
-        userDB.update(login_user);
-        userDB.update(user);
     }
 
     public void delete(String email, String login_email) throws Exception {
@@ -198,7 +201,13 @@ public class AccountService {
             {
                 throw new Exception("admins_cannot_delete_themselves");
             }
-            userDB.delete(user);
+            try {
+                userDB.delete(user);
+            } 
+            catch (Exception ex)
+            {
+                throw new Exception(ex);
+            }
         }
         else
         {
