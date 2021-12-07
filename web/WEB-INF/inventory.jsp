@@ -21,8 +21,9 @@
 
         <h1>Home Inventory</h1>
 
-        <table class="tableItem">
-            <tr>
+        <div class="inline">
+        <table class="border">
+            <tr class="border">
                 <th>Category</th>
                 <th>Name</th>
                 <th>Price</th>
@@ -42,8 +43,8 @@
                         </form>
                     </td>
                     <td>
-                        <form method="post">
-                            <input type="submit" value="Delete">
+                        <form method="get">
+                            <input type="submit" value="DELETE">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="itemID" value="${item.itemId}">
                         </form>
@@ -63,12 +64,15 @@
         <c:if test="${message eq 'updated'}">
             <p>An item has been successfully updated.</p>
         </c:if>  
-
+        </div>
+        <div class="inline">
         <c:choose>
             <c:when test="${display eq 'edit_page'}">
                 <form method="POST" action="inventory">
-                    <h2>Edit Item</h2>
-                    <table class="tableForm">
+                    <table class="border center">
+                        <tr class="border">
+                            <td colspan="2">Edit Item</td>
+                        </tr>
                         <tr>
                             <td><label>Category</label></td>
                             <td>
@@ -91,19 +95,20 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="submit" value="Save">
+                                <input type="submit" value="SAVE">
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="itemID" value="${item.itemId}">
                             </td>
-                        
                         </tr>
                     </table>
                 </form>  
             </c:when>
             <c:otherwise>
                 <form method="POST" action="inventory">
-                    <h1>Add Item</h1>
-                    <table class="tableForm">
+                    <table class="border">
+                        <tr class="border center">
+                            <td colspan="2">Add Item</td>
+                        </tr>
                         <tr>
                             <td><label>Category</label></td>
                             <td>
@@ -126,10 +131,14 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="submit" value="Save">
+                                <input type="submit" value="SAVE">
                                 <input type="hidden" name="action" value="add">
                             </td>
-
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="center small">
+                                <a href="inventory" class="btn grey">CANCEL</a>
+                            </td>
                         </tr>
                     </table>
                 </form>  
@@ -137,8 +146,7 @@
         </c:choose>
         <c:if test="${message eq 'invalid_input'}">
             <p>Error. Please enter all fields.</p> 
-            <p>Hint: the range of price is 0 to 9999.</p>
         </c:if>   
-
+        </div>
     </body>
 </html>

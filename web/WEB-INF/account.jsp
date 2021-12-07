@@ -55,7 +55,12 @@
                                    <c:if test="${user.active}">checked</c:if>> 
                             </td>
                     </tr>
-                    <tr><td colspan="2"><input type="submit" value="Update"></td></tr>
+                    <tr><td colspan="2"><input type="submit" value="UPDATE"></td></tr>
+                    <tr>
+                        <td colspan="2" class="center small">
+                            <a href="account" class="btn grey">CANCEL</a>
+                        </td>
+                    </tr>
                     </table>
                 </form>
             <c:if test="${message eq 'updated'}">

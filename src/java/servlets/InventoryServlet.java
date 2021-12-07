@@ -30,24 +30,6 @@ public class InventoryServlet extends HttpServlet {
         User user = as.get(email);
         request.setAttribute("user", user);
         
-        // get all items belong to the login user
-        List<Item> items = null;
-        try {
-            items = is.getAll(email);
-        } catch (Exception ex) {
-            Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }        
-        request.setAttribute("items", items);
-        
-        // get all categories for displaying dropdown list
-        CategoryDB categoriesDB = new CategoryDB();
-        List<Category> categoryList = categoriesDB.getAll();
-        request.setAttribute("categoryList", categoryList);
-        
-        // utility for converting Category model
-        Category categories = new Category();
-        request.setAttribute("categories", categories);
-        
         if (request.getParameter("action") != null)
         {
             String action = request.getParameter("action");
@@ -66,9 +48,36 @@ public class InventoryServlet extends HttpServlet {
                         Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
+                case "delete":
+                    itemID = Integer.parseInt(request.getParameter("itemID"));
+                    try {
+                        is.delete(itemID, user);
+                        request.setAttribute("message", "deleted");
+                    } catch (Exception ex) {
+                        request.setAttribute("message", ex.getMessage());
+                    }
+                    break;
             }
         }
         
+        // get all items belong to the login user
+        List<Item> items = null;
+        try {
+            items = is.getAll(email);
+        } catch (Exception ex) {
+            Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        request.setAttribute("items", items);
+        
+        // get all categories for displaying dropdown list
+        CategoryDB categoriesDB = new CategoryDB();
+        List<Category> categoryList = categoriesDB.getAll();
+        request.setAttribute("categoryList", categoryList);
+        
+        // utility for converting Category model
+        Category categories = new Category();
+        request.setAttribute("categories", categories);
+       
         getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
         return;
     }
@@ -109,6 +118,7 @@ public class InventoryServlet extends HttpServlet {
                     } catch (Exception ex) {
                         Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
                         
+                        item.setItemName(itemName);
                         if (price == null || price.equals("")) {
                             item.setPrice(0);
                         } else {
@@ -157,6 +167,7 @@ public class InventoryServlet extends HttpServlet {
                     } catch (Exception ex) {
                         request.setAttribute("message", ex.getMessage());
                     }
+                    response.sendRedirect("inventory");
                     break;
             }
         }    

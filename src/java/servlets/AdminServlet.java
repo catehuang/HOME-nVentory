@@ -38,27 +38,23 @@ public class AdminServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null && !action.equals(""))
         {
-            String selected_email = (String) request.getParameter("key");
-            User selected_user = as.get(selected_email);
-            request.setAttribute("selected_user", selected_user);
-            request.setAttribute("display", "edit_page");
-        }
-        /*
-        String action = request.getParameter("action");
-        String mode = "add";
-        request.setAttribute("as", as);
-
-        if (action != null && !action.equals("") && action.equals("edit")) {
-            mode = "edit";
-            User user = new User();
-            String username = request.getParameter("key");
-            user = as.get(username);
-            request.setAttribute("selectedUser", user);
-            session.setAttribute("originalUser", username);
+            if (action.equals("edit"))
+            {
+                String selected_email =  request.getParameter("edit_key");
+                User selected_user = as.get(selected_email);
+                request.setAttribute("selected_user", selected_user);
+                request.setAttribute("display", "edit_page");
+            }
+            else if (action.equals("delete"))
+            {
+                String delete_email = request.getParameter("delete_key");
+                request.setAttribute("delete_key", delete_email);
+                request.setAttribute("action", "delete");
+                doPost(request,response);
+                return;
+            }
         }
 
-        request.setAttribute("mode", mode);
-*/
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
         return;
     }
@@ -69,7 +65,7 @@ public class AdminServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
-        
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String firstname = request.getParameter("firstname");
@@ -86,8 +82,6 @@ public class AdminServlet extends HttpServlet {
         User user = new User();
         
         String display = "";
-
-        System.out.println("here " + action);
         
         try {
             switch (action) {
@@ -112,12 +106,12 @@ public class AdminServlet extends HttpServlet {
                     }
                     break;
                 case "update":
-                    String login_email = (String) session.getAttribute("login_email");
+                    String ori_email = request.getParameter("ori_key");
                     role_id = Integer.parseInt(request.getParameter("role"));
                     try
                     {
                         //String email, String password, boolean active, String firstname, String lastname, int role, String email
-                        as.update(email, password, active, firstname, lastname, role_id, email);
+                        as.update(email, password, active, firstname, lastname, role_id, ori_email);
                         request.setAttribute("message", "updated");
                     }
                     catch (Exception ex)
@@ -135,7 +129,7 @@ public class AdminServlet extends HttpServlet {
                     }
                     break;
                 case "delete":
-                    String delete_email = request.getParameter("key");
+                    String delete_email = request.getParameter("delete_key");
                     String login_user = (String) session.getAttribute("email");
                     try
                     {

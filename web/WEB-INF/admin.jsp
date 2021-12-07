@@ -19,6 +19,8 @@
         </div>
                 
         <h1>Manage Users</h1>   
+        <div class="inline scroll" >
+         
         <table class="border">
                 <tr class="border">
                     <th>Email</th>
@@ -41,16 +43,16 @@
                         <td>${stored_user.active}</td>
                         <td>
                             <form method="get">
-                                <input type="submit" value="Edit">
+                                <input type="submit" value="EDIT">
                                 <input type="hidden" name="action" value="edit">
-                                <input type="hidden" name="key" value="${stored_user.email}">
+                                <input type="hidden" name="edit_key" value="${stored_user.email}">
                             </form>
                         </td>
                         <td>
-                            <form method="post">
-                                <input type="submit" value="Delete">
+                            <form method="get">
+                                <input type="submit" value="DELETE">
                                 <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="key" value="${stored_user.email}">
+                                <input type="hidden" name="delete_key" value="${stored_user.email}">
                             </form>
                         </td>
                     </tr>
@@ -70,12 +72,15 @@
             <c:if test="${message eq 'deleted'}">
                 <p>A user has been successfully deleted.</p>
             </c:if>      
-        
+        </div>
+        <div class="inline">
             <c:choose>
                <c:when test="${display eq 'edit_page'}">
-                <h1>Edit User</h1> 
                 <form method="POST" action="admin">
-                    <table>
+                    <table class="border">
+                        <tr class="border center">
+                            <th colspan="2">Edit User</th>
+                        </tr>
                         <tr>
                             <td><label>Email </label></td>
                             <td><input type="text" name="email" value="${selected_user.email}"> </td>
@@ -113,19 +118,26 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="submit" value="Update">
+                                <input type="submit" value="UPDATE">
                                 <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="ori_key" value="${selected_user.email}">
                             </td>
                         </tr>
-                        <tr><a href="admin" class="btn">Cancel</a></tr>
+                        <tr>
+                            <td colspan="2" class="center small">
+                                <a href="admin" class="btn grey">CANCEL</a>
+                            </td>
+                        </tr>
                     </table>
                 </form> 
                </c:when>
                
-                <c:otherwise>
-                <h1>Add User</h1>            
+                <c:otherwise>     
                 <form method="POST" action="admin" class="tableForm">
-                    <table>
+                    <table class="border">
+                        <tr class="border center">
+                            <th colspan="2">Add User</th>
+                        </tr>
                         <tr>
                             <td><label>Email</label></td>
                             <td><input type="text" name="email" value="${add_user.email}"></td>
@@ -167,13 +179,13 @@
                         
                         <tr>
                             <td colspan="2">
-                                <input type="submit" value="Add">
+                                <input type="submit" value="ADD">
                                 <input type="hidden" name="action" value="add">
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <a href="admin" class="small center underline">Clear</a>
+                            <td colspan="2" class="center small">
+                                <a href="admin" class="btn grey">CANCEL</a>
                             </td>
                         </tr>
                     </table>
@@ -204,5 +216,6 @@
                 <p>Error. Failed to add user.</p>
             </c:when> 
         </c:choose>
+        </div>
     </body>
 </html>

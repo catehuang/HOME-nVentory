@@ -107,9 +107,9 @@ public class AccountService {
         userDB.insert(user);
     }
 
-    public void update(String email, String password, boolean active, String firstname, String lastname, int role, String login_email) throws Exception {
+    public void update(String email, String password, boolean active, String firstname, String lastname, int role, String ori_email) throws Exception {
         UserDB userDB = new UserDB();
-        User login_user = userDB.get(login_email);
+        User ori_user = userDB.get(ori_email);
         User user = new User();
         
         // check email
@@ -121,16 +121,21 @@ public class AccountService {
         {
             throw new Exception("email_40");
         }
-        else if (userDB.get(email) == null) // check this email is avaliable for registration
+        
+        if (userDB.get(email) == null) // this email is avaliable for registration
         {
             user.setEmail(email);
         }
-        else if (email.equals(login_email))
+        else 
         {
-            user.setEmail(email);
-        }
-        else {
-            throw new Exception("email_exists");
+            if (email.equals(ori_email))
+            {
+                user.setEmail(email);
+            }
+            else 
+            {
+                throw new Exception("email_exists");
+            }
         }
 
         // check password
@@ -177,16 +182,26 @@ public class AccountService {
         user.setActive(active);
         user.setRole(new Role(role));
 
-        try {
+        try 
+        {
             userDB.update(user);
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
             throw new Exception(ex);
         }
         
-        if (! email.equals(login_email))    // update PK email
+        if (! email.equals(ori_email))    // update PK email
         {
-            login_user.setActive(false);
+            ori_user.setActive(false);
+            try 
+            {
+                userDB.update(ori_user);
+            } 
+            catch (Exception ex)
+            {
+                throw new Exception(ex);
+            }
         }
     }
 

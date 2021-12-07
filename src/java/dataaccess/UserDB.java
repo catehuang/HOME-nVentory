@@ -42,8 +42,8 @@ public class UserDB {
             em.persist(user);
             trans.commit();
         } catch (Exception ex) {
-            System.out.println(ex);
             trans.rollback();
+            throw new Exception(ex);
         } finally {
             em.close();
         }
@@ -59,6 +59,7 @@ public class UserDB {
             trans.commit();
         } catch (Exception ex) {
             trans.rollback();
+            throw new Exception(ex);
         } finally {
             em.close();
         }
