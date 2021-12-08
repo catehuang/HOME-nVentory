@@ -13,7 +13,10 @@
                 <li><a href="#" class="welcome">Hello ${user.firstName} ${user.lastName}</a></li>
                 <li><a href="inventory">Inventory</a></li>
                 <li><a href="account">Account</a></li>
-                <li><a href="admin">Admin</a></li>
+                <c:if test="${user.role.getRoleId() eq 1}">
+                    <li><a href="admin">Manage Users</a></li>
+                    <li><a href="category">Manage Categories</a></li>
+                </c:if>
                 <li><a href="login?logout">Logout</a></li>
             </ul>
         </div>

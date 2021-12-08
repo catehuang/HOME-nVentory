@@ -21,8 +21,16 @@
         <servlet-name>AdminServlet</servlet-name>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <servlet-name>CategoryServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <servlet-name>AdminServlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <servlet-name>CategoryServlet</servlet-name>
     </filter-mapping>
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
@@ -44,6 +52,10 @@
         <servlet-name>AccountServlet</servlet-name>
         <servlet-class>servlets.AccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CategoryServlet</servlet-name>
+        <servlet-class>servlets.CategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -63,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>
         <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CategoryServlet</servlet-name>
+        <url-pattern>/category</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

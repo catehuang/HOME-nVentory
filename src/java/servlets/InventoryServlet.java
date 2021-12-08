@@ -78,6 +78,7 @@ public class InventoryServlet extends HttpServlet {
         Category categories = new Category();
         request.setAttribute("categories", categories);
        
+        request.setAttribute("role", new Role());
         getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
         return;
     }
