@@ -30,7 +30,8 @@
                     <td class="small nopadding" ><lable><a href="register" class="underline">Create an account</a></lable></td>
                     <td class="right small nopadding"><lable><a href="#" class="underline">Forgot password?</a></lable></td>
                 </tr>
-
+                </table>
+                <div>
                 <c:if test="${message eq 'registered'}">
                     <tr><td colspan="2"><p>Registered successfully.</p></td></tr>
                 </c:if>
@@ -46,7 +47,8 @@
                 <c:if test="${message eq 'deactivated_account'}">
                     <tr><td colspan="2"><p>This account is deactivated. Please contact system administrator to reactivate account.</p></td></tr>
                 </c:if> 
-            </table>
+                    </div>
+            
         </form>     
 
 

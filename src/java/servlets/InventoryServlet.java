@@ -128,7 +128,6 @@ public class InventoryServlet extends HttpServlet {
 
                         request.setAttribute("item", item);
                         request.setAttribute("message", ex.getMessage());
-                        request.setAttribute("display", "edit_page");
                     }
                     break;
                 case "update":

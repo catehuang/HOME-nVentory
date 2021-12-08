@@ -102,7 +102,6 @@ public class AdminServlet extends HttpServlet {
                         user.setRole(new Role(role_id));
                         request.setAttribute("selected_user", user);
                         request.setAttribute("message", ex.getMessage());
-                        display = "edit_page";
                     }
                     break;
                 case "update":

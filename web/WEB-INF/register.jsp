@@ -25,10 +25,11 @@
                         <td><input type="text" maxlength="20" name="firstname" value="${user.firstName}"></td>
                     </tr>
                     <tr>
-                        <td rowspan="2">Last Name</td>
+                        <td>Last Name</td>
                         <td><input type="text" maxlength="20" name="lastname" value="${user.lastName}"></td>
                     </tr>
-                    <tr><td><input type="submit" value="Register"><td></tr>
+                    <tr><td colspan="2"><input type="submit" value="Register"><td></tr>
+                    <tr><td colspan="2" class="small center"><a href="login" class="btn blue">Back to Login Page</a><td></tr>
                 </table>
             </form>
             <div id="registerMessaage">

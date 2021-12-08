@@ -21,7 +21,7 @@
             </ul>
         </div>
 
-        <h1>Manage Category</h1>
+        <h1>Manage Categories</h1>
 
         <div class="inline">
             <table class="border">
@@ -50,8 +50,8 @@
                 <c:when test="${display eq 'edit_page'}">
                     <form method="POST" action="category">
                         <table class="border">
-                            <tr class="border">
-                                <th colspan="2" class="center">Edit Category</th>
+                            <tr class="border center">
+                                <th colspan="2">Edit Category</th>
                             </tr>
                             <tr>
                                 <td>Category ID</td>
@@ -70,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="center small">
-                                    <a href="category" class="btn grey">CANCEL</a>
+                                    <a href="category" class="btn blue">CANCEL</a>
                                 </td>
                             </tr>
                         </table>
@@ -94,7 +94,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="center small">
-                                    <a href="category" class="btn grey">CANCEL</a>
+                                    <a href="category" class="btn blue">CANCEL</a>
                                 </td>
                             </tr>
                         </table>

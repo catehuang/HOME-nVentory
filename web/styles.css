@@ -84,7 +84,7 @@ input[type="submit"]
 }
 
 p {
-    color: deepskyblue;
+    color: #ffff66;
     font-size: small;
     text-align: center;
 }
@@ -106,8 +106,8 @@ p {
     color: #e6e6e6;
 }
 
-.grey {
-    background-color: #808080;
+.blue {
+    background-color: #0033cc;
     color: #e6e6e6;
 }
 
@@ -151,6 +151,6 @@ td, th {
     font: inherit;
     border-radius: 3px;
     border: 1px solid black;
-    padding: 5px 5px;
+    padding: 3px 3px;
     cursor: pointer;
 }

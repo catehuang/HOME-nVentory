@@ -64,7 +64,6 @@ public class AccountServlet extends HttpServlet {
         } 
         catch (Exception ex) 
         {
-            request.setAttribute("user", user);
             request.setAttribute("message", ex.getMessage());
             Logger.getLogger(AccountServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,6 +73,11 @@ public class AccountServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
+        
+        request.setAttribute("user", user);
+        RoleDB roleDB = new RoleDB();
+        request.setAttribute("roleList", roleDB.getAll());
+        
         getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);
         return;
     }

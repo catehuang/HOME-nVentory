@@ -55,16 +55,18 @@
                         <td><label>Active</label></td>
                         <td>
                             <input type="checkbox" name="active" value="${user.active}"
-                                   <c:if test="${user.active}">checked</c:if>> 
-                            </td>
+                                   <c:if test="${user.active}">checked</c:if>>
+                        </td>
                     </tr>
                     <tr><td colspan="2"><input type="submit" value="UPDATE"></td></tr>
                     <tr>
                         <td colspan="2" class="center small">
-                            <a href="account" class="btn grey">CANCEL</a>
+                            <a href="account" class="btn blue">CANCEL</a>
                         </td>
                     </tr>
                     </table>
+                        <p>Caution: You will be automatically logged out once deactivated</p>
+                        <p>Deactivated users cannot login system</p>
                 </form>
             <c:if test="${message eq 'updated'}">
                 <p>Account information has been successfully updated.</p>

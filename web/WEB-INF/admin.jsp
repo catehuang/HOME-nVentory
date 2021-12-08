@@ -128,7 +128,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="center small">
-                                <a href="admin" class="btn grey">CANCEL</a>
+                                <a href="admin" class="btn blue">CANCEL</a>
                             </td>
                         </tr>
                     </table>
@@ -188,7 +188,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="center small">
-                                <a href="admin" class="btn grey">CANCEL</a>
+                                <a href="admin" class="btn blue">CANCEL</a>
                             </td>
                         </tr>
                     </table>

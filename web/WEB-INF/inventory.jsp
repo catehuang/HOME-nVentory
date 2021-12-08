@@ -72,8 +72,8 @@
         <c:choose>
             <c:when test="${display eq 'edit_page'}">
                 <form method="POST" action="inventory">
-                    <table class="border center">
-                        <tr class="border">
+                    <table class="border">
+                        <tr class="border center">
                             <td colspan="2">Edit Item</td>
                         </tr>
                         <tr>
@@ -93,14 +93,19 @@
                             <td><input type="text" name="itemName" value="${item.itemName}"></td>
                         </tr>
                         <tr>
-                            <td rowspan="2"><label>Price: </label></td>
+                            <td><label>Price: </label></td>
                             <td><input type="text" name="price" value="${item.price}"></td>
                         </tr>
                         <tr>
-                            <td>
+                            <td colspan="2">
                                 <input type="submit" value="SAVE">
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="itemID" value="${item.itemId}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="center small">
+                                <a href="inventory" class="btn blue">CANCEL</a>
                             </td>
                         </tr>
                     </table>
@@ -140,7 +145,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="center small">
-                                <a href="inventory" class="btn grey">CANCEL</a>
+                                <a href="inventory" class="btn blue">CANCEL</a>
                             </td>
                         </tr>
                     </table>

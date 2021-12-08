@@ -39,7 +39,7 @@ public class InventoryService {
             throw new Exception("invalid_input");
         } else {
             double price = Double.parseDouble(string_price);
-            if (price <= 0 || price >= 10000) {
+            if (price <= 0) {
                 throw new Exception("invalid_input");
             }
             item.setPrice(price);
@@ -73,7 +73,7 @@ public class InventoryService {
                 throw new Exception("invalid_input");
             } else {
                 double price = Double.parseDouble(string_price);
-                if (price <= 0 || price >= 10000) {
+                if (price <= 0) {
                     throw new Exception("invalid_input");
                 }
                 item.setPrice(price);
