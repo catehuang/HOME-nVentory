@@ -36,6 +36,18 @@ public class ItemDB
         }
     }
     
+    public List<Item> getAll()
+    {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+        try {
+            List<Item> items = em.createNamedQuery("Item.findAll", Item.class).getResultList();
+            return items;
+        } finally {
+            em.close();
+        }
+    }
+    
     public void insert(Item item) throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

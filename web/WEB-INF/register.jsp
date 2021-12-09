@@ -29,7 +29,7 @@
                         <td><input type="text" maxlength="20" name="lastname" value="${user.lastName}"></td>
                     </tr>
                     <tr><td colspan="2"><input type="submit" value="Register"><td></tr>
-                    <tr><td colspan="2" class="small center"><a href="login" class="btn blue">Back to Login Page</a><td></tr>
+                    <tr><td colspan="2" class="small center"><a href="login" class="btn blue">Back To Login</a><td></tr>
                 </table>
             </form>
             <div id="registerMessaage">

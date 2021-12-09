@@ -38,6 +38,10 @@ h1 {
     margin: 40px auto 20px auto;
 }
 
+h5 {
+    margin: 20px auto 20px auto;
+}
+
 .welcome {
     pointer-events: none;
     color: #ffff66; 
@@ -93,6 +97,10 @@ p {
     text-align: right;
 }
 
+.left {
+    text-align: left;
+}
+
 .center {
     text-align: center;
 }
@@ -102,12 +110,16 @@ p {
 }
 
 .green {
-    background-color: #339966;
+    background-color: #00b359;
     color: #e6e6e6;
 }
 
 .blue {
     background-color: #0033cc;
+    color: #e6e6e6;
+}
+
+.white {
     color: #e6e6e6;
 }
 
@@ -118,6 +130,16 @@ p {
 
 .nopadding {
     padding: 0 10px;
+}
+
+.margin {
+    margin: 40px auto;
+}
+
+.w40 {
+    margin: 0 auto;
+    text-align: center;
+    width: 40%;
 }
 
 .border {

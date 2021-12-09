@@ -17,6 +17,9 @@
                     <li><a href="admin">Manage Users</a></li>
                     <li><a href="category">Manage Categories</a></li>
                     </c:if>
+                    <c:if test="${user.role.getRoleId() != 2}">
+                    <li><a href="search">Search Items</a></li>
+                    </c:if>
                 <li><a href="login?logout">Logout</a></li>
             </ul>
         </div>

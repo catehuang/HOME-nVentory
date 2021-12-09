@@ -24,7 +24,6 @@ public class AccountServlet extends HttpServlet {
         AccountService as = new AccountService();
         User user = as.get(email);
         RoleDB roleDB = new RoleDB();
-        Role role = new Role();
 
         request.setAttribute("user", user);
         request.setAttribute("roleList", roleDB.getAll());
@@ -43,8 +42,10 @@ public class AccountServlet extends HttpServlet {
         String password = request.getParameter("password");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
-        int role = Integer.parseInt(request.getParameter("role"));
+        
+        AccountService as = new AccountService();
         String active_string = request.getParameter("active");
+        Role role = as.get(login_user).getRole();
 
         boolean active = false;
         if (active_string != null) {
@@ -52,13 +53,11 @@ public class AccountServlet extends HttpServlet {
         }
         //String email, boolean active, String firstName, String lastName, String password
         User user = new User(email, active, firstname, lastname, password);
-        user.setRole(new Role(role));
-
-        AccountService as = new AccountService();
+        user.setRole(role);
 
         try 
         {
-            as.update(email, password, active, firstname, lastname, role, login_user);
+            as.update(email, password, active, firstname, lastname, role.getRoleId(), login_user);
             request.setAttribute("message", "updated");
             session.setAttribute("email", email);
         } 

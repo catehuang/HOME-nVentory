@@ -71,16 +71,16 @@ INSERT INTO `category` (`category_name`) VALUES ('storage');
 INSERT INTO `category` (`category_name`) VALUES ('other');
 
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
-	VALUES ('cprg352+admin@gmail.com', true, 'Admin','Admin', 'password', 1);
+	VALUES ('sait.cprg.352+admin@gmail.com', true, 'Admin','Admin', 'password', 1);
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
-	VALUES ('cprg352+admin2@gmail.com', true, 'Admin2','Admin2', 'password', 3);
+	VALUES ('sait.cprg.352+admin2@gmail.com', true, 'Admin2','Admin2', 'password', 3);
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
-	VALUES ('cprg352+anne@gmail.com', true, 'Anne','Annerson', 'password', 2);
+	VALUES ('sait.cprg.352+anne@gmail.com', true, 'Anne','Annerson', 'password', 2);
 INSERT INTO `user` (`email`,`active`,`first_name`,`last_name`,`password`,`role`)
-	VALUES ('cprg352+barb@gmail.com', true, 'Barb','Barber', 'password', 2);
+	VALUES ('sait.cprg.352+barb@gmail.com', true, 'Barb','Barber', 'password', 2);
 
-INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (1, 'blender',29.99,'cprg352+anne@gmail.com');
-INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (1, 'toaster',19.99,'cprg352+anne@gmail.com');
-INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (3, 'lamp',5,'cprg352+anne@gmail.com');
-INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (6, 'winter tires',200,'cprg352+anne@gmail.com');
-INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (5, 'dresser',50,'cprg352+anne@gmail.com');
+INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (1, 'blender',29.99,'sait.cprg.352+anne@gmail.com');
+INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (1, 'toaster',19.99,'sait.cprg.352+anne@gmail.com');
+INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (3, 'lamp',5,'sait.cprg.352+anne@gmail.com');
+INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (6, 'winter tires',200,'sait.cprg.352+anne@gmail.com');
+INSERT INTO `item` (`category`,`item_name`,`price`,`owner`) VALUES (5, 'dresser',50,'sait.cprg.352+anne@gmail.com');

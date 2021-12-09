@@ -20,6 +20,13 @@ public class InventoryService {
         return items;
     }
 
+    public List<Item> getAll() throws Exception {
+        ItemDB itemsDB = new ItemDB();
+        List<Item> items = itemsDB.getAll();
+        return items;
+    }
+    
+    
     public void insert(int categoryID, String itemName, String string_price, String email) throws Exception {
         Item item = new Item();
         ItemDB itemDB = new ItemDB();

@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td class="small nopadding" ><lable><a href="register" class="underline">Create an account</a></lable></td>
-                    <td class="right small nopadding"><lable><a href="#" class="underline">Forgot password?</a></lable></td>
+                    <td class="right small nopadding"><lable><a href="forgot" class="underline">Forgot password?</a></lable></td>
                 </tr>
                 </table>
                 <div>

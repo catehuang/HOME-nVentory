@@ -13,10 +13,13 @@
                 <li><a href="#" class="welcome">Hello ${user.firstName} ${user.lastName}</a></li>
                 <li><a href="inventory">Inventory</a></li>
                 <li><a href="account">Account</a></li>
-                <c:if test="${user.role.getRoleId() eq 1}">
+                    <c:if test="${user.role.getRoleId() eq 1}">
                     <li><a href="admin">Manage Users</a></li>
                     <li><a href="category">Manage Categories</a></li>
-                </c:if>
+                    </c:if>
+                    <c:if test="${user.role.getRoleId() != 2}">
+                    <li><a href="search">Search Items</a></li>
+                    </c:if>
                 <li><a href="login?logout">Logout</a></li>
             </ul>
         </div>
@@ -42,31 +45,24 @@
                     </tr>
                     <tr>
                         <td><label>Role</label></td>
-                        <td>
-                            <select name="role">
-                                <c:forEach items="${roleList}" var="r">
-                                    <option value="${r.getRoleId()}"
-                                            <c:if test="${r.equals(user.role)}">selected</c:if>
-                                            >${r.getRoleName()}</option>
-                                </c:forEach>
-                        </td>
+                        <td><input type="text" name="role" value="${user.role.getRoleName()}" readonly="readonly"></td>
                     </tr>
                     <tr>
                         <td><label>Active</label></td>
                         <td>
                             <input type="checkbox" name="active" value="${user.active}"
                                    <c:if test="${user.active}">checked</c:if>>
-                        </td>
-                    </tr>
-                    <tr><td colspan="2"><input type="submit" value="UPDATE"></td></tr>
-                    <tr>
-                        <td colspan="2" class="center small">
-                            <a href="account" class="btn blue">CANCEL</a>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                        <tr><td colspan="2"><input type="submit" value="UPDATE"></td></tr>
+                        <tr>
+                            <td colspan="2" class="center small">
+                                <a href="account" class="btn blue">CANCEL</a>
+                            </td>
+                        </tr>
                     </table>
-                        <p>Caution: You will be automatically logged out once deactivated</p>
-                        <p>Deactivated users cannot login system</p>
+                    <p class="white">Caution: You will be automatically logged out once deactivated</p>
+                    <p class="white">Deactivated users cannot login system</p>
                 </form>
             <c:if test="${message eq 'updated'}">
                 <p>Account information has been successfully updated.</p>
