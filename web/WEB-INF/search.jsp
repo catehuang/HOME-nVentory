@@ -19,6 +19,7 @@
                     </c:if>
                     <c:if test="${user.role.getRoleId() != 2}">
                     <li><a href="search">Search Items</a></li>
+                    <li><a href="report">Reporting</a></li>
                     </c:if>
                 <li><a href="login?logout">Logout</a></li>
             </ul>
@@ -36,12 +37,12 @@
             <table class="left border">
                 <tr class="border">
                     <th>Item Name</th>
-                    <th>Owner</th>
+                    <th>Name</th>
                 </tr>
                 <c:forEach items="${items}" var="item">
                     <tr>
                         <td>${item.itemName}</td>
-                        <td>${item.owner.getFirstName()} ${item.owner.getFirstName()}</td>
+                        <td>${item.owner.getFirstName()} ${item.owner.getLastName()}</td>
                     </tr>
                 </c:forEach>
             </table>

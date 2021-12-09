@@ -20,6 +20,7 @@
                 </c:if>
                 <c:if test="${user.role.getRoleId() != 2}">
                     <li><a href="search">Search Items</a></li>
+                    <li><a href="report">Reporting</a></li>
                 </c:if>
                 <li><a href="login?logout">Logout</a></li>
             </ul>

@@ -3,7 +3,10 @@ package services;
 import dataaccess.CategoryDB;
 import dataaccess.ItemDB;
 import dataaccess.UserDB;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.*;
 
 public class InventoryService {
@@ -26,7 +29,35 @@ public class InventoryService {
         return items;
     }
     
+    public int getNumberOfItems(String email) throws Exception {
+        ItemDB itemsDB = new ItemDB();
+        ArrayList<Item> items;
+        try {
+            items = (ArrayList<Item>) itemsDB.getAll(email);
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+        return items.size();
+    }
     
+    public double getValueOfItems(String email) throws Exception {
+        ItemDB itemsDB = new ItemDB();
+        ArrayList<Item> items;
+        try {
+            items = (ArrayList<Item>) itemsDB.getAll(email);
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+        
+        double value = 0.0;
+        
+        for(Item item: items)
+        {
+            value += item.getPrice();
+        }
+        return value;
+    }
+        
     public void insert(int categoryID, String itemName, String string_price, String email) throws Exception {
         Item item = new Item();
         ItemDB itemDB = new ItemDB();

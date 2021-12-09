@@ -1,8 +1,6 @@
 package servlets;
 
-import dataaccess.ItemDB;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Category;
 import models.Item;
 import models.User;
 import services.AccountService;
@@ -21,7 +18,6 @@ import services.InventoryService;
 public class SearchServlet extends HttpServlet {
 
     @Override
-    @SuppressWarnings("null")
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -66,8 +62,6 @@ public class SearchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                
-        getServletContext().getRequestDispatcher("/WEB-INF/search.jsp").forward(request, response);
-        return;
     }
 
 }
