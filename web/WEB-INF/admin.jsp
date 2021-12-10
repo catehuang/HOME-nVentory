@@ -49,14 +49,14 @@
                         <td>${stored_user.role.getRoleName()}</td>
                         <td>${stored_user.active}</td>
                         <td>
-                            <form method="get">
+                            <form method="get" action="admin">
                                 <input type="submit" value="EDIT">
                                 <input type="hidden" name="action" value="edit">
                                 <input type="hidden" name="edit_key" value="${stored_user.email}">
                             </form>
                         </td>
                         <td>
-                            <form method="get">
+                            <form method="post" action="admin">
                                 <input type="submit" value="DELETE">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="delete_key" value="${stored_user.email}">

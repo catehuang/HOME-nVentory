@@ -45,14 +45,6 @@ public class AdminServlet extends HttpServlet {
                 request.setAttribute("selected_user", selected_user);
                 request.setAttribute("display", "edit_page");
             }
-            else if (action.equals("delete"))
-            {
-                String delete_email = request.getParameter("delete_key");
-                request.setAttribute("delete_key", delete_email);
-                request.setAttribute("action", "delete");
-                doPost(request,response);
-                return;
-            }
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);

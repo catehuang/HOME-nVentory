@@ -43,14 +43,14 @@
                     <td>${item.itemName}</th>
                     <td>&#36;${item.price}</th>
                     <td>
-                        <form method="get">
+                        <form method="get" action="inventory">
                             <input type="submit" value="Edit">
-                            <input type="hidden" name="action" value="retrieve">
+                            <input type="hidden" name="action" value="edit">
                             <input type="hidden" name="itemID" value="${item.itemId}">
                         </form>
                     </td>
                     <td>
-                        <form method="get">
+                        <form method="post" action="inventory">
                             <input type="submit" value="DELETE">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="itemID" value="${item.itemId}">

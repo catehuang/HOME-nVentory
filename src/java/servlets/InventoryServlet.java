@@ -29,55 +29,43 @@ public class InventoryServlet extends HttpServlet {
         // get information of login user
         User user = as.get(email);
         request.setAttribute("user", user);
-        
-        if (request.getParameter("action") != null)
-        {
+
+        if (request.getParameter("action") != null) {
             String action = request.getParameter("action");
-            
-            switch (action)
-            {
+
+            if (action.equals("edit")) {
                 // Retrieve item information for further update
-                case "retrieve":
-                    Item item;
-                    int itemID = Integer.parseInt(request.getParameter("itemID"));
-                    try {
-                        item = is.get(itemID);
-                        request.setAttribute("item", item);
-                        request.setAttribute("display", "edit_page");
-                    } catch (Exception ex) {
-                        Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
-                case "delete":
-                    itemID = Integer.parseInt(request.getParameter("itemID"));
-                    try {
-                        is.delete(itemID, user);
-                        request.setAttribute("message", "deleted");
-                    } catch (Exception ex) {
-                        request.setAttribute("message", ex.getMessage());
-                    }
-                    break;
+                Item item;
+                int itemID = Integer.parseInt(request.getParameter("itemID"));
+                try {
+                    item = is.get(itemID);
+                    request.setAttribute("item", item);
+                    request.setAttribute("display", "edit_page");
+                } catch (Exception ex) {
+                    Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         }
-        
+
         // get all items belong to the login user
         List<Item> items = null;
         try {
             items = is.getAll(email);
         } catch (Exception ex) {
             Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         request.setAttribute("items", items);
-        
+
         // get all categories for displaying dropdown list
         CategoryDB categoriesDB = new CategoryDB();
         List<Category> categoryList = categoriesDB.getAll();
         request.setAttribute("categoryList", categoryList);
-        
+
         // utility for converting Category model
         Category categories = new Category();
         request.setAttribute("categories", categories);
-       
+
         request.setAttribute("role", new Role());
         getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
         return;
@@ -92,33 +80,31 @@ public class InventoryServlet extends HttpServlet {
         InventoryService is = new InventoryService();
         AccountService as = new AccountService();
         Item item = new Item();
-        
+
         // get login user information
         HttpSession session = request.getSession();
         String email = (String) session.getAttribute("email");
         User user = as.get(email);
-        
-        if (request.getParameter("action") != null)
-        {
+
+        if (request.getParameter("action") != null) {
             String action = request.getParameter("action");
             int categoryID;
             String itemName;
             String price;
             int itemID;
-            
-            switch (action)
-            {
+
+            switch (action) {
                 case "add":
                     categoryID = Integer.parseInt(request.getParameter("category"));
                     itemName = request.getParameter("itemName");
                     price = request.getParameter("price");
-                    
+
                     try {
                         is.insert(categoryID, itemName, price, email);
                         request.setAttribute("message", "added");
                     } catch (Exception ex) {
                         Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
-                        
+
                         item.setItemName(itemName);
                         if (price == null || price.equals("")) {
                             item.setPrice(0);
@@ -135,13 +121,13 @@ public class InventoryServlet extends HttpServlet {
                     categoryID = Integer.parseInt(request.getParameter("category"));
                     itemName = request.getParameter("itemName");
                     price = request.getParameter("price");
-                    
+
                     try {
                         is.update(itemID, categoryID, itemName, price, email);
                         request.setAttribute("message", "updated");
                     } catch (Exception ex) {
                         Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
-                        
+
                         item.setCategory(categoriesDB.get(categoryID));
                         item.setItemName(itemName);
 
@@ -153,7 +139,7 @@ public class InventoryServlet extends HttpServlet {
 
                         request.setAttribute("message", ex.getMessage());
 
-                        if (! ex.getMessage().equals("not_belong_to_you")) {
+                        if (!ex.getMessage().equals("not_belong_to_you")) {
                             request.setAttribute("item", item);
                             request.setAttribute("display", "edit_page");
                         }
@@ -167,31 +153,30 @@ public class InventoryServlet extends HttpServlet {
                     } catch (Exception ex) {
                         request.setAttribute("message", ex.getMessage());
                     }
-                    response.sendRedirect("inventory");
                     break;
             }
-        }    
+        }
 
         // for displaying inventory page
         request.setAttribute("user", user);
-        
+
         // get all items belong to the login user
         List<Item> items = null;
         try {
             items = is.getAll(email);
         } catch (Exception ex) {
             Logger.getLogger(InventoryServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
         request.setAttribute("items", items);
-        
+
         // get all categories for displaying dropdown list
         List<Category> categoryList = categoriesDB.getAll();
         request.setAttribute("categoryList", categoryList);
-        
+
         // utility for converting Category model
         Category categories = new Category();
         request.setAttribute("categories", categories);
-        
+
         getServletContext().getRequestDispatcher("/WEB-INF/inventory.jsp").forward(request, response);
         return;
     }
