@@ -42,7 +42,7 @@
                 <c:forEach items="${items}" var="item">
                     <tr>
                         <td>${item.itemName}</td>
-                        <td>${item.owner.getFirstName()} ${item.owner.getLastName()}</td>
+                        <td>${item.owner.getLastName()}, ${item.owner.getFirstName()}</td>
                     </tr>
                 </c:forEach>
             </table>

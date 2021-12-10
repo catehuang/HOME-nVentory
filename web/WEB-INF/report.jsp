@@ -41,7 +41,7 @@
                     <c:set var="total_number" value="${0}"/>
                     <c:set var="total_value" value="${0}"/>
                     <tr>
-                        <td>${each_user.firstName} ${each_user.lastName}</td>
+                        <td>${each_user.lastName}, ${each_user.firstName}</td>
                         <c:forEach items="${each_user.getItemList()}" var="each_item">      
                             <c:set var="total_number" value="${total_number + 1}"/>
                             <c:set var="total_value" value="${total_value + each_item.price}"/>
@@ -50,11 +50,17 @@
                         <td>&dollar;${total_value}</td>
                     <tr>
                     </c:forEach>
-                    <tr><td colspan="4">
-                            <input type="hidden" name="action" value="export">
-                            <input type="submit" value="Export">
+                    <tr>
+                        <td colspan="4">
+                            <input type="submit" name="action" value="Export Report For All Users">
                         </td>
-                    </tr>        
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="4">
+                            <input type="submit" name="action" value="Export Report For Regular Users">
+                        </td>
+                    </tr> 
             </table>
         </form> 
     </body>

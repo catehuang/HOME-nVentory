@@ -41,9 +41,38 @@ public class ReportServlet extends HttpServlet {
 
         // get all users in database
         List<User> all_users = as.getAll();
-        request.setAttribute("all_users", all_users);
         
-        getServletContext().getRequestDispatcher("/WEB-INF/exportReport.jsp").forward(request, response);
-        return;
+        if (request.getParameter("action") != null)
+        {
+            String action = request.getParameter("action");
+            System.out.println(action);
+            
+            if (action.equals("Export Report For All Users"))
+            {
+                request.setAttribute("all_users", all_users);
+                getServletContext().getRequestDispatcher("/WEB-INF/exportAllUsers.jsp").forward(request, response);
+                return;
+            }
+            else if (action.equals("Export Report For Regular Users"))
+            {
+                ArrayList<User> regular_active_users = new ArrayList();
+                
+                for (User u : all_users)
+                {
+                    // regular and active users only
+                    if (u.getActive() == true && u.getRole().getRoleId() == 2)
+                    {
+                        regular_active_users.add(u);
+                    }
+                }
+                
+                regular_active_users.sort(Comparator.comparing(User::getLastName).thenComparing(User::getFirstName));
+                all_users = regular_active_users;
+                request.setAttribute("all_users", all_users);
+                
+                getServletContext().getRequestDispatcher("/WEB-INF/exportRegularUsers.jsp").forward(request, response);
+                return;
+            }
+        }
     }
 }
