@@ -1,5 +1,5 @@
 # HOME-nVentory
-A website HOME-nVentory developed by Java, and MySQL.
+A website HOME-nVentory developed using Java, JSP, Servlet and MySQL.
 
 # Features
 * Users can be regular users or administrators. 
